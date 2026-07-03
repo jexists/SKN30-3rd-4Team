@@ -142,6 +142,19 @@ html, body {
   gap: 28px;
 }
 
+/* 제목이 있는 슬라이드는 제목을 항상 같은 위치(상단)에 고정하고,
+   본문만 남은 공간에서 수직 중앙 정렬한다 — 슬라이드마다 제목 위치가
+   들쭉날쭉해지는 것을 방지 */
+.content-inner:has(> .title) {
+  margin: 0;
+}
+.content-inner:has(> .title) > .title + * {
+  margin-top: auto;
+}
+.content-inner:has(> .title) > *:last-child {
+  margin-bottom: auto;
+}
+
 /* 제목 */
 .title {
   font-size: var(--fs-title);
