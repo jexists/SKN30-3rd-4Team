@@ -69,17 +69,31 @@ intake(의도 분류) → chitchat(잡담: 검색 없이 응답)
 
 ## 기술 스택
 
+**Language & Framework**
+
 ![Python](https://img.shields.io/badge/Python%203.13-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 ![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)
 ![LangGraph](https://img.shields.io/badge/LangGraph-1C3C3C?style=for-the-badge&logoColor=white)
+
+**LLM & Embedding**
+
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
+![GPT--4.1--mini](https://img.shields.io/badge/GPT--4.1--mini-생성-10A37F?style=for-the-badge&logo=openai&logoColor=white)
+![GPT--4.1--nano](https://img.shields.io/badge/GPT--4.1--nano-분류%C2%B7판정-10A37F?style=for-the-badge&logo=openai&logoColor=white)
+![GPT--4o](https://img.shields.io/badge/GPT--4o-OCR%2FVision-10A37F?style=for-the-badge&logo=openai&logoColor=white)
+![text--embedding--3--small](https://img.shields.io/badge/text--embedding--3--small-1024차원-10A37F?style=for-the-badge&logo=openai&logoColor=white)
+
+**Database & Infra**
+
 ![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL%20%2B%20pgvector-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![LangSmith](https://img.shields.io/badge/LangSmith-F5A623?style=for-the-badge&logoColor=white)
 ![uv](https://img.shields.io/badge/uv-DE5FE9?style=for-the-badge&logo=uv&logoColor=white)
 
-LLM: GPT-4.1-mini(생성) · GPT-4.1-nano(분류·판정) · GPT-4o(OCR/Vision) · text-embedding-3-small(1024차원) / 평가: RAGAS
+**Evaluation**
+
+![LangSmith](https://img.shields.io/badge/LangSmith-F5A623?style=for-the-badge&logoColor=white)
+![RAGAS](https://img.shields.io/badge/RAGAS-FF6F61?style=for-the-badge&logoColor=white)
 
 ## 폴더 구조
 
@@ -119,3 +133,20 @@ uv run streamlit run app/main.py
 ## 발표 자료
 
 [발표 슬라이드 보기](https://jexists.github.io/SKN30-3rd-4Team-dev/ppt/slides/01_cover.html) (←/→ 이동 · `T` 목차)
+
+## 화면 구성
+
+| | |
+|---|---|
+| ![메인 화면](ppt/assets/main.png) | ![챗봇](ppt/assets/챗봇.png) |
+| ![챗봇 대화](ppt/assets/챗봇대화.png) | ![챗봇 이미지 분석](ppt/assets/챗봇이미지.png) |
+
+## 회고록
+
+### 김진남
+
+### 정민규
+
+### 정주애
+
+### 천성배
