@@ -7,7 +7,7 @@
 <style>
   .pipe {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     gap: 10px;
     width: 100%;
@@ -19,13 +19,23 @@
     padding: 18px 14px;
     text-align: center;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
   .pipe .st .f { font-size: 20px; font-weight: 800; color: var(--c-primary); font-family: Consolas, monospace; }
   .pipe .st .c { font-size: 20px; font-weight: 500; color: var(--c-gray); margin-top: 6px; line-height: 1.35; }
   .pipe .st.final { background: var(--c-navy); }
   .pipe .st.final .f { color: var(--c-yellow); }
   .pipe .st.final .c { color: rgba(255, 255, 255, 0.8); }
-  .pipe .arr { font-size: 22px; font-weight: 800; color: var(--c-light); flex: none; }
+  .pipe .arr {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--c-light);
+    flex: none;
+    display: flex;
+    align-items: center;
+  }
   .points {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

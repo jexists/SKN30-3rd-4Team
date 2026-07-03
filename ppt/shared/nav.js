@@ -22,7 +22,7 @@ var SLIDES = [
   { file: "06_stack.html", title: "기술 스택" },
   { file: "07_data.html", title: "사용한 데이터" },
   { file: "08_pipeline.html", title: "데이터 파이프라인" },
-  { file: "09_erd_v1.html", title: "ERD ① 물리 + 논리 스키마" },
+  { file: "09_erd_v1.html", title: "ERD 물리 + 논리 스키마" },
   { file: "10_langgraph.html", title: "LangGraph 전체 구조" },
   { file: "11_langgraph_detail.html", title: "pre 서브그래프 & 품질 루프" },
   { file: "12_features.html", title: "핵심 기능" },
