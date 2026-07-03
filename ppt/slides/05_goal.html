@@ -70,49 +70,44 @@
       <div class="topbar">
         <div class="topbar-brand">
           <img src="../assets/logo.png" class="topbar-logo" alt="" />
-          <span class="topbar-name">홈쉴드</span>
+          <span class="topbar-name">Home Shield</span>
         </div>
         <span class="topbar-page"></span>
       </div>
       <div class="content">
         <div class="content-inner" style="gap: 20px;">
-          <h1 class="title">목표 — <span class="accent">계약 전 + 계약 후</span> 투트랙</h1>
+          <h1 class="title">목표</h1>
           <p class="diff-note">
-            대부분의 서비스는 계약 <span class="hl">전</span> 위험 진단에서 멈춘다.<br />
-            홈쉴드는 <span class="hl">계약 후 분쟁까지</span> 법령·판례 근거로 지원 — 이것이 차별점.
+            전세 계약전/후에 있어 사회초년생의 비 전문적 법률지식을 RAG기반 LLM을 통해 전세사기를 미리예방 할 수 있다.<br />
           </p>
           <div class="twotrack">
             <div class="track pre">
-              <span class="tag">계약 전 · 예방</span>
+              <span class="tag">계약전(전세사기 위험진단 : 예방)</span>
               <span class="ttl">전세사기 위험 진단</span>
-              <span class="cap">등기부·특약 분석 · 전세가율 계산<br />깡통전세 위험 판정</span>
+              <span class="cap">표준 임대차계약서, 등기부등본, 특약사항 분석<br />전세가율 계산, 깡통전세 위험 판정</span>
             </div>
             <div class="track post">
-              <span class="tag">계약 후 · 분쟁 대응</span>
-              <span class="ttl">근거 포함 분쟁 상담</span>
-              <span class="cap">수리 책임 · 보증금 반환 · 계약갱신<br />법령·판례 인용 멀티턴 상담</span>
+              <span class="tag">계약 후 (근거포함 분쟁상담 : 대응)</span>
+              <span class="ttl">수리책임, 보증금 반환, 계약갱신</span>
+              <span class="cap">볍령/판례에 근거한 분쟁사례 멀티턴 상담<br />법령·판례 인용 멀티턴 상담</span>
             </div>
           </div>
           <div class="flow">
             <div class="step">
-              <div class="n">1단계</div>
-              <div class="t">인덱싱</div>
-              <div class="c">법령·판례 수집 → 메타태깅<br />→ pgvector 인덱스</div>
+              <div class="n">1.인덱싱</div>
+              <div class="c">법령·판례 수집 → 메타태깅<br />→ pgvector index</div>
             </div>
             <span class="arr">&rarr;</span>
             <div class="step">
-              <div class="n">2단계</div>
-              <div class="t">검색 RAG</div>
+              <div class="n">2.검색(RAG)</div>
               <div class="c">질의 분석 → 메타필터+의미검색<br />→ 조항·판례 추출</div>
             </div>
             <span class="arr">&rarr;</span>
             <div class="step">
-              <div class="n">3단계</div>
-              <div class="t">진단·상담</div>
-              <div class="c">계약 전 위험 진단<br />계약 후 근거 상담</div>
+              <div class="n">3. 진단.상담</div>
+              <div class="c">계약전 위험진단<br />계약후 근거대응</div>
             </div>
           </div>
-          <div class="principle">정량 판단(전세가율)은 결정론 코드 · 법령 해석은 RAG — 수치 환각 차단 하이브리드</div>
         </div>
       </div>
     </div>

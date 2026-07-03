@@ -119,7 +119,7 @@ var SLIDES = [
       <div class="topbar">
         <div class="topbar-brand">
           <img src="../assets/logo.png" class="topbar-logo" alt="" />
-          <span class="topbar-name">홈쉴드</span>
+          <span class="topbar-name">Home Shield</span>
         </div>
         <span class="topbar-page"></span><!-- nav.js가 자동 기입 -->
       </div>
