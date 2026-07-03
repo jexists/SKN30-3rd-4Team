@@ -23,15 +23,14 @@ var SLIDES = [
   { file: "07_data.html", title: "사용한 데이터" },
   { file: "08_pipeline.html", title: "데이터 파이프라인" },
   { file: "09_erd_v1.html", title: "ERD ① 물리 + 논리 스키마" },
-  { file: "10_erd_v2.html", title: "ERD ② 단일 테이블" },
-  { file: "11_langgraph.html", title: "LangGraph 전체 구조" },
-  { file: "12_langgraph_detail.html", title: "pre 서브그래프 & 품질 루프" },
-  { file: "13_features.html", title: "핵심 기능" },
-  { file: "14_eval.html", title: "성능 평가" },
-  { file: "15_demo.html", title: "프로젝트 시연" },
-  { file: "16_issues.html", title: "주요 이슈 및 해결" },
-  { file: "17_future.html", title: "확장 가능성 & 향후 과제" },
-  { file: "18_closing.html", title: "마무리" }
+  { file: "10_langgraph.html", title: "LangGraph 전체 구조" },
+  { file: "11_langgraph_detail.html", title: "pre 서브그래프 & 품질 루프" },
+  { file: "12_features.html", title: "핵심 기능" },
+  { file: "13_eval.html", title: "성능 평가" },
+  { file: "14_demo.html", title: "프로젝트 시연" },
+  { file: "15_issues.html", title: "주요 이슈 및 해결" },
+  { file: "16_future.html", title: "확장 가능성 & 향후 과제" },
+  { file: "17_closing.html", title: "마무리" }
 ];
 
 (function () {

@@ -10,7 +10,7 @@ SKN30 3차 프로젝트 · 4조 (김진남 · 정민규 · 정주애 · 천성�
 
 ---
 
-## 1. 덱 구성 (18장)
+## 1. 덱 구성 (17장)
 
 | # | 파일 | 제목 | 핵심 내용 | 콘텐츠 출처 |
 |---|------|------|-----------|-------------|
@@ -23,17 +23,16 @@ SKN30 3차 프로젝트 · 4조 (김진남 · 정민규 · 정주애 · 천성�
 | 7 | `slides/07_data.html` | 사용한 데이터 | 법령 API · 공공 PDF 16종 · 웹 자료 + 메타 4축 | data/01_raw, docs/prd.pdf |
 | 8 | `slides/08_pipeline.html` | 데이터 파이프라인 | 01_raw→Supabase 6단계 플로우 + 포인트 3개 | src/pipe/, data/ 폴더 구조 |
 | 9 | `slides/09_erd_v1.html` | ERD ① 물리+논리 | kb_chunks 물리 테이블 + JSONB 논리 엔티티 분기 | src/core/vs_method.py |
-| 10 | `slides/10_erd_v2.html` | ERD ② 단일 테이블 | kb_chunks 컬럼 상세 + 인덱스 3종 + 검색 쿼리 개념 | src/core/vs_method.py |
-| 11 | `slides/11_langgraph.html` | LangGraph 전체 구조 | `assets/langgraph_main.png` + 핵심 포인트 4개 | src/core/graph.py (draw_mermaid 결과) |
-| 12 | `slides/12_langgraph_detail.html` | pre 서브그래프 & 품질 루프 | `assets/langgraph_pre.png` + 결정론 노드 강조 + 품질 카드 4개 | src/core/graph.py |
-| 13 | `slides/13_features.html` | 핵심 기능 | OCR 판독 5단계 히어로 + 보조 기능 4카드 | docs/prd.pdf, app/ |
-| 14 | `slides/14_eval.html` | 성능 평가 | 0.868 / 0.68 / 1~2초 큰 숫자 + TC-01~04 + 21.8초 병목 | 팀 테스트 보고서 (RAGAS), eval/ |
-| 15 | `slides/15_demo.html` | 프로젝트 시연 | **예외 레이아웃** — localhost:8501 풀스크린 iframe | app/main.py |
-| 16 | `slides/16_issues.html` | 주요 이슈 및 해결 | 문제→해결 4행 (필터 버그 · PDF 손상 · 429 · grade 게이트) | 팀 트러블슈팅 기록 |
-| 17 | `slides/17_future.html` | 확장 가능성 & 향후 과제 | 확장 4개 / 한계 5개 2열 | docs/prd.pdf |
-| 18 | `slides/18_closing.html` | 마무리 | 감사 인사 + 태그라인 + Q&A + 팀원 | — |
+| 10 | `slides/10_langgraph.html` | LangGraph 전체 구조 | `assets/langgraph_main.png` + 핵심 포인트 4개 | src/core/graph.py (draw_mermaid 결과) |
+| 11 | `slides/11_langgraph_detail.html` | pre 서브그래프 & 품질 루프 | `assets/langgraph_pre.png` + 결정론 노드 강조 + 품질 카드 4개 | src/core/graph.py |
+| 12 | `slides/12_features.html` | 핵심 기능 | OCR 판독 5단계 히어로 + 보조 기능 4카드 | docs/prd.pdf, app/ |
+| 13 | `slides/13_eval.html` | 성능 평가 | 0.868 / 0.68 / 1~2초 큰 숫자 + TC-01~04 + 21.8초 병목 | 팀 테스트 보고서 (RAGAS), eval/ |
+| 14 | `slides/14_demo.html` | 프로젝트 시연 | **예외 레이아웃** — localhost:8501 풀스크린 iframe | app/main.py |
+| 15 | `slides/15_issues.html` | 주요 이슈 및 해결 | 문제→해결 4행 (필터 버그 · PDF 손상 · 429 · grade 게이트) | 팀 트러블슈팅 기록 |
+| 16 | `slides/16_future.html` | 확장 가능성 & 향후 과제 | 확장 4개 / 한계 5개 2열 | docs/prd.pdf |
+| 17 | `slides/17_closing.html` | 마무리 | 감사 인사 + 태그라인 + Q&A + 팀원 | — |
 
-ERD는 ①(9번)·②(10번) 두 버전을 모두 담았다 — 발표 전 하나를 골라 쓰거나 둘 다 넘겨도 된다.
+ERD는 물리+논리 스키마 한 버전만 담았다(9번) — 컬럼 상세를 별도로 보여주던 "단일 테이블" 버전은 중복이라 제거했다.
 
 ---
 
@@ -99,11 +98,11 @@ reveal.js 계열 발표 사이트 스타일: **콘텐츠 정중앙 배치 · 큰
 var SLIDES = [
   { file: "01_cover.html", title: "표지" },
   // ... 순서 변경 = 배열 순서 변경, 삭제 = 항목 제거
-  { file: "19_appendix.html", title: "부록" },  // 추가 예시
+  { file: "18_appendix.html", title: "부록" },  // 추가 예시
 ];
 ```
 
-새 슬라이드 보일러플레이트 (`slides/19_appendix.html` 예시):
+새 슬라이드 보일러플레이트 (`slides/18_appendix.html` 예시):
 
 ```html
 <!DOCTYPE html>
@@ -139,13 +138,13 @@ var SLIDES = [
 
 ---
 
-## 5. 시연 슬라이드 (15_demo) 사용법
+## 5. 시연 슬라이드 (14_demo) 사용법
 
 1. 발표 전 터미널에서 앱을 먼저 실행:
    ```bash
    uv run streamlit run app/main.py
    ```
-2. 슬라이드 15로 진입하면 `http://localhost:8501` 이 **100vw×100vh 풀스크린 iframe**으로 뜬다 — 슬라이드 안에서 실제 앱을 그대로 조작하며 시연.
+2. 슬라이드 14로 진입하면 `http://localhost:8501` 이 **100vw×100vh 풀스크린 iframe**으로 뜬다 — 슬라이드 안에서 실제 앱을 그대로 조작하며 시연.
 3. 서버 미기동 시 iframe 뒤 배경의 실행 안내(`uv run streamlit run app/main.py`)가 보인다. 서버를 켠 뒤 F5 새로고침.
 4. 이 슬라이드에서 키보드 포커스가 iframe 안에 있으면 ←/→ 가 안 먹는다 — **우하단 플로팅 ‹ › 버튼**으로 이동하라.
 
@@ -153,7 +152,7 @@ var SLIDES = [
 
 ## 6. 성능 수치 출처
 
-슬라이드 14의 수치는 팀 테스트 보고서 기반이다 (RAGAS 프레임워크 + LangSmith 추적):
+슬라이드 13의 수치는 팀 테스트 보고서 기반이다 (RAGAS 프레임워크 + LangSmith 추적):
 
 - **Faithfulness 0.868**, **Factual Correctness 0.68 (0.50~0.89 분포)** — RAGAS 평가 결과
 - **응답 시간 1~2초** (일반 질의), **최대 21.8초** (재작성 루프 중첩 케이스) — LangSmith 레이턴시 측정
@@ -165,4 +164,4 @@ var SLIDES = [
 
 ## 7. Claude 에게 수정 요청할 때
 
-이 덱을 수정할 때는 다음처럼 요청하면 정확하다: 대상 슬라이드를 파일명으로 지정하고(예: "14_eval.html의 게이지 색을 바꿔줘"), 공통 변경은 `shared/style.css`(디자인 토큰)나 `shared/nav.js`(순서·제목)를 지목하라. 디자인 원칙 — 콘텐츠 정중앙, 본문 20px 이상, 요소 수 최소화, 카드 빈 공간 금지, 외부 CDN 금지, 수치·노드명·팀원 이름 임의 변경 금지 — 를 유지하라고 명시하면 스타일이 흐트러지지 않는다. 새 통계·수치는 반드시 출처와 함께 제공할 것.
+이 덱을 수정할 때는 다음처럼 요청하면 정확하다: 대상 슬라이드를 파일명으로 지정하고(예: "13_eval.html의 게이지 색을 바꿔줘"), 공통 변경은 `shared/style.css`(디자인 토큰)나 `shared/nav.js`(순서·제목)를 지목하라. 디자인 원칙 — 콘텐츠 정중앙, 본문 20px 이상, 요소 수 최소화, 카드 빈 공간 금지, 외부 CDN 금지, 수치·노드명·팀원 이름 임의 변경 금지 — 를 유지하라고 명시하면 스타일이 흐트러지지 않는다. 새 통계·수치는 반드시 출처와 함께 제공할 것.
