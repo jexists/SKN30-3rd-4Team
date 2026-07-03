@@ -83,29 +83,13 @@
           <div class="twotrack">
             <div class="track pre">
               <span class="tag">계약전(전세사기 위험진단 : 예방)</span>
-              <span class="ttl">전세사기 위험 진단</span>
+              <!-- <span class="ttl">전세사기 위험 진단</span> -->
               <span class="cap">표준 임대차계약서, 등기부등본, 특약사항 분석<br />전세가율 계산, 깡통전세 위험 판정</span>
             </div>
-            <div class="track post">
+            <div class="track pre">
               <span class="tag">계약 후 (근거포함 분쟁상담 : 대응)</span>
-              <span class="ttl">수리책임, 보증금 반환, 계약갱신</span>
+              <!-- <span class="ttl">수리책임, 보증금 반환, 계약갱신</span> -->
               <span class="cap">볍령/판례에 근거한 분쟁사례 멀티턴 상담<br />법령·판례 인용 멀티턴 상담</span>
-            </div>
-          </div>
-          <div class="flow">
-            <div class="step">
-              <div class="n">1.인덱싱</div>
-              <div class="c">법령·판례 수집 → 메타태깅<br />→ pgvector index</div>
-            </div>
-            <span class="arr">&rarr;</span>
-            <div class="step">
-              <div class="n">2.검색(RAG)</div>
-              <div class="c">질의 분석 → 메타필터+의미검색<br />→ 조항·판례 추출</div>
-            </div>
-            <span class="arr">&rarr;</span>
-            <div class="step">
-              <div class="n">3. 진단.상담</div>
-              <div class="c">계약전 위험진단<br />계약후 근거대응</div>
             </div>
           </div>
         </div>

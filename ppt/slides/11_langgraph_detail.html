@@ -52,17 +52,17 @@
           <div class="dt-wrap">
             <img class="dt-img" src="../assets/langgraph_pre.png" alt="pre_contract 서브그래프 — ocr_extract, analyze_document, calc_jeonse_ratio, assess_risk, analyze_pre_query, build_pre_context" />
             <div class="dt-right">
-              <div class="det">
-                <div class="t">🧮 결정론 노드 — 수치 환각 차단</div>
+              <div class="qc">
+                <div class="t">🧮 결정론 노드 — 수치 환각 차단 (LLM이 아닌 코드가 계산)</div>
                 <div class="c">
                   <code>calc_jeonse_ratio</code> = (보증금+선순위채권) / 매매시세<br />
                   <code>assess_risk</code> = 임계값 판정 (≥0.8 위험 / ≥0.7 경계)<br />
-                  LLM이 아닌 <b>코드가 계산</b>
+
                 </div>
               </div>
               <div class="qc">
                 <div class="t">grade 결정론 게이트</div>
-                <div class="c">LLM 호출 없이 유사도 판정 (top-1 ≥0.45 충분 / &lt;0.35 재작성) — 지연·비용 0</div>
+                <div class="c">LLM 호출 없이 유사도 판정 (top-1 ≥0.45 충분 / &lt;0.35 재작성)<br /> — 지연·비용 0</div>
               </div>
               <div class="qc">
                 <div class="t">재검색 누적 병합</div>
