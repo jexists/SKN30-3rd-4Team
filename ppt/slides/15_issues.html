@@ -5,21 +5,43 @@
 <title>홈쉴드 — 주요 이슈 및 해결</title>
 <link rel="stylesheet" href="../shared/style.css" />
 <style>
-  .issues {
+  .issues-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .issues-header {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px 24px;
+    grid-template-columns: 1fr 44px 1fr;
+  }
+  .issues-header span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 6px 18px;
+    border-radius: 999px;
+  }
+  .issues-header .h-before { background: var(--c-red); color: var(--c-white); }
+  .issues-header .h-after { background: var(--c-primary); color: var(--c-white); grid-column: 3; justify-self: start; }
+  .issues {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     width: 100%;
   }
   .issue {
     display: grid;
-    grid-template-columns: 1fr 36px 1fr;
+    grid-template-columns: 1fr 44px 1fr;
     align-items: center;
     gap: 0;
   }
   .before, .after {
     border-radius: var(--radius);
-    padding: 16px 18px;
+    padding: 16px 24px;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -28,9 +50,7 @@
   }
   .before { background: var(--c-red-bg); }
   .after { background: var(--c-blue-bg); }
-  .before .tag { font-size: 18px; font-weight: 800; color: var(--c-red); }
-  .after .tag { font-size: 18px; font-weight: 800; color: var(--c-primary); }
-  .before .d, .after .d { font-size: 17px; font-weight: 600; line-height: 1.4; }
+  .before .d, .after .d { font-size: 19px; font-weight: 600; line-height: 1.4; }
   .before .d { color: #7f1d1d; }
   .after .d { color: var(--c-deep); }
   .issue .arr {
@@ -54,49 +74,40 @@
       <div class="content">
         <div class="content-inner" style="gap: 26px;">
           <h1 class="title">주요 이슈 및 해결</h1>
-          <div class="issues">
-            <div class="issue">
-              <div class="before">
-                <!-- <span class="tag">문제</span> -->
-                <span class="d">PDF 내 주요 표(Table)들이 텍스트가 아닌 이미지 형태로 삽입되어 있어 기존 텍스트 파싱 시 정보 누락 발생</span>
-              </div>
-              <span class="arr">&rarr;</span>
-              <div class="after">
-                <!-- <span class="tag">해결</span> -->
-                <span class="d">local OCR 을 사용하려 했는데 정확성이 떨어져 LLM을 활용하여 OCR 을 진행</span>
-              </div>
+          <div class="issues-wrap">
+            <div class="issues-header">
+              <span class="h-before">문제</span>
+              <span></span>
+              <span class="h-after">해결</span>
             </div>
-            <div class="issue">
-              <div class="before">
-                <!-- <span class="tag">문제</span> -->
-                <span class="d">PDF 텍스트층 손상 — ToUnicode 깨짐으로 숫자 누락</span>
+            <div class="issues">
+              <div class="issue">
+                <div class="before">
+                  <span class="d">PDF 내 주요 표(Table)들이 텍스트가 아닌 이미지 형태로 삽입되어 있어 기존 텍스트 파싱 시 정보 누락 발생</span>
+                </div>
+                <span class="arr">&rarr;</span>
+                <div class="after">
+                  <span class="d">local OCR 을 사용하려 했는데 정확성이 떨어져 LLM을 활용하여 OCR 을 진행</span>
+                </div>
               </div>
-              <span class="arr">&rarr;</span>
-              <div class="after">
-                <!-- <span class="tag">해결</span> -->
-                <span class="d">본문 숫자 밀도 자동 감지 + GPT-4o Vision 강제 라우팅</span>
+
+              <div class="issue">
+                <div class="before">
+                  <span class="d">grade LLM 판정의 지연·비용</span>
+                </div>
+                <span class="arr">&rarr;</span>
+                <div class="after">
+                  <span class="d">검색 유사도 결정론 게이트로 대체 — LLM 호출 0회</span>
+                </div>
               </div>
-            </div>
-            <div class="issue">
-              <div class="before">
-                <!-- <span class="tag">문제</span> -->
-                <span class="d">OpenAI 429 폭주 — SDK 내부 재시도와 자체 재시도 중첩</span>
-              </div>
-              <span class="arr">&rarr;</span>
-              <div class="after">
-                <!-- <span class="tag">해결</span> -->
-                <span class="d">SDK 재시도 끄고 지수 백오프 일원화</span>
-              </div>
-            </div>
-            <div class="issue">
-              <div class="before">
-                <!-- <span class="tag">문제</span> -->
-                <span class="d">grade LLM 판정의 지연·비용</span>
-              </div>
-              <span class="arr">&rarr;</span>
-              <div class="after">
-                <!-- <span class="tag">해결</span> -->
-                <span class="d">검색 유사도 결정론 게이트로 대체 — LLM 호출 0회</span>
+              <div class="issue">
+                <div class="before">
+                  <span class="d">RAG 답변 품질 평가(RAGAS)에서 Faithfulness(근거 충실도)는 높으나 Answer Relevancy(질문 정합성)가 현저히 낮게 측정됨</span>
+                </div>
+                <span class="arr">&rarr;</span>
+                <div class="after">
+                  <span class="d">답변 생성 프롬프트를 규칙 기반으로 재설계함</span>
+                </div>
               </div>
             </div>
           </div>
