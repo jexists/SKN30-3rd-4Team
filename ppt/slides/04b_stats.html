@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 숫자로 보는 선정 배경</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .stat-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    width: 100%;
+  }
+  .stat {
+    background: var(--c-blue-bg);
+    border-radius: var(--radius);
+    padding: 26px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .stat .v { font-size: 52px; font-weight: 900; color: var(--c-primary); line-height: 1; }
+  .stat .n { font-size: 22px; font-weight: 800; }
+  .stat .c { font-size: 20px; font-weight: 500; color: var(--c-gray); line-height: 1.4; }
+  .insight-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    width: 100%;
+  }
+  .insight {
+    background: var(--c-gray-bg);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .insight .ic { font-size: 30px; flex: none; }
+  .insight .tx { font-size: 21px; font-weight: 600; line-height: 1.45; }
+  .insight .tx b { color: var(--c-deep); font-weight: 800; }
+  .strip {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--c-white);
+    background: var(--c-deep);
+    border-radius: 999px;
+    padding: 14px 36px;
+    text-align: center;
+  }
+  .strip .hl { color: var(--c-yellow); }
+  .src {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--c-gray);
+    text-align: center;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">Home Shield</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 24px;">
+          <h1 class="title">숫자로 보는 선정 배경</h1>
+          <p class="subtitle">이 주제는 체감이 아니라 <b>통계</b>에서 출발했습니다</p>
+          <div class="stat-cards">
+            <div class="stat">
+              <span class="v">3.4만+</span>
+              <span class="n">전세사기 피해자 누적</span>
+              <span class="c">그중 <b>74.7%</b>가 20·30대</span>
+            </div>
+            <div class="stat">
+              <span class="v">11조 원+</span>
+              <span class="n">HUG 전세보증 사고액</span>
+              <span class="c">최근 5년 누적</span>
+            </div>
+            <div class="stat">
+              <span class="v">약 70%</span>
+              <span class="n">전세가율 90% 초과 구간</span>
+              <span class="c">보증사고 집중 발생</span>
+            </div>
+          </div>
+          <div class="insight-row">
+            <div class="insight">
+              <span class="ic">🎯</span>
+              <span class="tx">피해는 <b>사회초년생에 집중</b> — 위험은 <b>등기부·전세가율</b>에서 미리 읽을 수 있었다</span>
+            </div>
+            <div class="insight">
+              <span class="ic">⚖️</span>
+              <span class="tx">계약 후에도 <b>보증금 반환·계약갱신 분쟁</b>이 조정 신청의 대부분 — 분쟁은 일상</span>
+            </div>
+          </div>
+          <div class="strip">&lsquo;<span class="hl">확인만 했으면 막을 수 있었던 위험</span>&rsquo; — 계약 전 진단하고, 계약 후 법령·판례 근거를 쥐여준다</div>
+          <p class="src">출처 : 국토교통부 전세사기피해지원위원회·국회 제출 자료 · HUG(주택도시보증공사) 국회 국토교통위 제출 자료 · 한국부동산원·대한법률구조공단 공식 안내</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

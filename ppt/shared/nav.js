@@ -18,6 +18,7 @@ var SLIDES = [
   { file: "02_toc.html", title: "목차" },
   { file: "03_team.html", title: "팀 소개" },
   { file: "04_problem.html", title: "문제 정의 · 선정 배경" },
+  { file: "04b_stats.html", title: "숫자로 보는 선정 배경" },
   { file: "05_goal.html", title: "목표 & 차별점" },
   { file: "06_stack.html", title: "기술 스택" },
   { file: "07_data.html", title: "사용한 데이터" },

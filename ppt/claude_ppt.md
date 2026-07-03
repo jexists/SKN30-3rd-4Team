@@ -18,6 +18,7 @@ SKN30 3차 프로젝트 · 4조 (김진남 · 정민규 · 정주애 · 천성�
 | 2 | `slides/02_toc.html` | 목차 | 8개 대목차 카드 (클릭 점프) | — |
 | 3 | `slides/03_team.html` | 팀 소개 | 팀 정의 + 4인 역할 카드 | docs/prd.pdf |
 | 4 | `slides/04_problem.html` | 문제 정의 · 선정 배경 | 히어로 인용 + 4대 문제 카드 | docs/prd.pdf |
+| 4b | `slides/04b_stats.html` | 숫자로 보는 선정 배경 | 통계 3카드(피해 3.4만+·74.7% 2030 / HUG 사고액 5년 11조+ / 사고 70% 전세가율 90%↑) + 인사이트 2개 + 출처 | 국토교통부 전세사기피해지원위·국회 제출 자료, HUG 국회 국토교통위 제출 자료, 한국부동산원·대한법률구조공단 |
 | 5 | `slides/05_goal.html` | 목표 & 차별점 | **계약 전 예방 + 계약 후 대응 투트랙**(차별점) + 3단계 파이프라인 + 하이브리드 설계 원칙 | docs/prd.pdf, app/ (계약 전/후 2페이지 구성) |
 | 6 | `slides/06_stack.html` | 기술 스택 | 카테고리별 스택 행 (Python 3.13 ~ PyMuPDF) | pyproject.toml, docs/prd.pdf |
 | 7 | `slides/07_data.html` | 사용한 데이터 | 법령 API · 공공 PDF 16종 · 웹 자료 + 메타 4축 | data/01_raw, docs/prd.pdf |
