@@ -4,6 +4,11 @@ base = "light"
 [server]
 headless = true
 port = 8501
+# ppt 데모(14_demo.html)에서 file:// 페이지의 iframe으로 앱을 띄우면 최상위 문서가
+# localhost와 다른 사이트로 취급되어 SameSite 쿠키가 차단되고, XSRF 토큰 쿠키가
+# 전송되지 않아 파일 업로드(POST /_stcore/upload_file)만 403으로 실패한다.
+# (텍스트 채팅은 WebSocket이라 영향 없음) 로컬 데모 용도이므로 XSRF 보호를 끈다.
+enableXsrfProtection = false
 
 [browser]
 gatherUsageStats = false
