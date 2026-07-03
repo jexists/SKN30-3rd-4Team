@@ -60,18 +60,22 @@
     text-align: center;
   }
   .ents {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     flex: 1;
   }
   .ent {
     background: var(--c-gray-bg);
     border-radius: var(--radius);
-    padding: 16px 20px;
+    padding: 12px 20px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
-  .ent .t { font-size: 21px; font-weight: 800; margin-bottom: 6px; }
-  .ent .f { font-size: 20px; font-weight: 500; color: var(--c-gray); font-family: Consolas, monospace; }
+  .ent .t { font-size: 19px; font-weight: 800; flex: none; width: 150px; }
+  .ent .f { font-size: 18px; font-weight: 500; color: var(--c-gray); font-family: Consolas, monospace; }
   .caption {
     font-size: 21px;
     font-weight: 700;

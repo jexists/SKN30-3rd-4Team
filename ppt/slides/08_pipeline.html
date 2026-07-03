@@ -7,6 +7,13 @@
 <style>
   .pipe {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+  .pipe-row {
+    display: flex;
     align-items: stretch;
     justify-content: center;
     gap: 10px;
@@ -35,6 +42,11 @@
     flex: none;
     display: flex;
     align-items: center;
+  }
+  .pipe .arr-down {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--c-light);
   }
   .points {
     display: grid;
@@ -68,17 +80,22 @@
         <div class="content-inner" style="gap: 32px;">
           <h1 class="title">데이터 파이프라인</h1>
           <div class="pipe">
-            <div class="st"><div class="f">01_raw</div><div class="c">HWP·PDF<br />API 원본</div></div>
-            <span class="arr">&rarr;</span>
-            <div class="st"><div class="f">02_loaded</div><div class="c">텍스트/Vision<br />하이브리드 로드</div></div>
-            <span class="arr">&rarr;</span>
-            <div class="st"><div class="f">03_processed</div><div class="c">정제<br />정규화</div></div>
-            <span class="arr">&rarr;</span>
-            <div class="st"><div class="f">04_chunks</div><div class="c">법령 500/50<br />사례 1200/80자</div></div>
-            <span class="arr">&rarr;</span>
-            <div class="st"><div class="f">05_vectordb</div><div class="c">임베딩<br />체크포인트</div></div>
-            <span class="arr">&rarr;</span>
-            <div class="st final"><div class="f">Supabase</div><div class="c">kb_chunks 적재<br />배치 500건</div></div>
+            <div class="pipe-row">
+              <div class="st"><div class="f">01_raw</div><div class="c">PDF<br />API 원본</div></div>
+              <span class="arr">&rarr;</span>
+              <div class="st"><div class="f">02_loaded</div><div class="c">텍스트/Vision<br />하이브리드 로드</div></div>
+              <span class="arr">&rarr;</span>
+              <div class="st"><div class="f">03_processed</div><div class="c">정제<br />정규화</div></div>
+            </div>
+            <br />
+            <!-- <span class="arr-down">&darr;</span> -->
+            <div class="pipe-row">
+              <div class="st"><div class="f">04_chunks</div><div class="c">법령 500/50<br />사례 1200/80</div></div>
+              <span class="arr">&rarr;</span>
+              <div class="st"><div class="f">05_vectordb</div><div class="c">임베딩<br />체크포인트</div></div>
+              <span class="arr">&rarr;</span>
+              <div class="st final"><div class="f">Supabase</div><div class="c">kb_chunks 적재<br />배치 500건</div></div>
+            </div>
           </div>
         </div>
       </div>
