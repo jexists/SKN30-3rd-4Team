@@ -30,7 +30,8 @@ var SLIDES = [
   { file: "14_demo.html", title: "프로젝트 시연" },
   { file: "15_issues.html", title: "주요 이슈 및 해결" },
   { file: "16_future.html", title: "확장 가능성 & 향후 과제" },
-  { file: "17_closing.html", title: "마무리" }
+  { file: "17_future2.html", title: "확장 가능성 & 향후 과제 2" },
+  { file: "18_closing.html", title: "마무리" }
 ];
 
 (function () {

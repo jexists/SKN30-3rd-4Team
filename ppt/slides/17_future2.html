@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<title>홈쉴드 — 확장 가능성 & 향후 과제</title>
+<title>홈쉴드 — 확장 가능성 & 향후 과제 2</title>
 <link rel="stylesheet" href="../shared/style.css" />
 <style>
   .future-col {
@@ -70,47 +70,38 @@
       </div>
       <div class="content">
         <div class="content-inner" style="gap: 30px;">
-          <h1 class="title">향후 과제 1</h1>
+          <h1 class="title">향후 과제 2</h1>
           <div class="future-col">
             <div class="future-item">
-              <div class="t">문서인식(OCR) 고도화</div>
+              <div class="t">로컬/오픈소스 LLM 병행 — 비용·개인정보 대응</div>
               <div class="pair">
                 <div class="box problem">
                   <div class="lbl">아쉬움</div>
-                  <p>PDF 표가 이미지로 삽입되어 정보 누락 — 마크다운 표 판독 프롬프트 고도화 과제 잔존</p>
+                  <p>등기부·계약서는 개인정보 포함 문서</p>
                 </div>
                 <div class="box solution">
                   <div class="lbl">개선안</div>
                   <ul>
-                    <li>문서 레이아웃 분석으로 표·특약란 구조 인식 정확도 향상</li>
-                    <li>특약조항 다중 라벨 분류(수선의무/원상복구/중도해지 등)</li>
-                    <li>→ 위험도별 자동 하이라이트</li>
-                    <li>위험조항 발견 시 대체문구를 바로 삽입한 "수정계약서" 자동 생성</li>
+                    <li>분류·판정 등 경량 작업을 한국어 오픈소스 모델(로컬 서빙)로 대체해 API 비용·429 리스크 절감.</li>
+                    <li> 개인정보가 담긴 OCR 단계의 로컬 처리 옵션 제공.</li>
+                    <li>  비용/품질 비교 실측 결과 자체가 고도화 발표의 정량 자료가 됨 </li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div class="future-item">
-              <div class="t">실시간 시세연동 : 전세가율 완전 자동화</div>
+            <!-- <div class="future-item">
+              <div class="t">실시간 시세 연동 : 전세가율 완전 자동화</div>
               <div class="pair">
                 <div class="box problem">
                   <div class="lbl">아쉬움</div>
-                  <p>매매세를 사용자가 수동입력해야 전세가율 계산가능</p>
+                  <p>매매 시세를 사용자가 수동 입력해야 전세가율 계산 가능</p>
                 </div>
                 <div class="box solution">
-                  <div class="lbl">개선안</div>
-                  <ul>
-                    <li>국토교통부 실거래가 공개API등 공공시세 데이터를 연동,
-등기부에서 추출한 주소로 시세를 자동조회.</li>
-                    <li>
-→  OC부터 위험판정까지 사용자 입력없이 완결.</li>
-                    <li>
-결정론 노드구조를 그대로 유지하면서 입력만 자동화</li>
-                  </ul>
+                  <div class="lbl">고도화 방향</div>
+                  <p>국토교통부 실거래가 공개 API 등 공공 시세 데이터 연동 → 등기부에서 추출한 주소로 시세 자동 조회. OCR부터 위험 판정까지 사용자 입력 없이 완결 (결정론 노드 구조는 유지, 입력만 자동화)</p>
                 </div>
               </div>
-            </div>
-
+            </div> -->
           </div>
         </div>
       </div>
