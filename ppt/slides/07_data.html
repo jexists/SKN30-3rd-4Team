@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 사용한 데이터</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .data-cards {
+    display: grid;
+    grid-template-columns: 1.2fr 1.2fr 0.9fr;
+    gap: 16px;
+    width: 100%;
+  }
+  .d-card {
+    background: var(--c-gray-bg);
+    border-radius: var(--radius);
+    padding: 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .d-card .ttl { font-size: 23px; font-weight: 800; }
+  .d-card .ttl small { font-size: 20px; font-weight: 600; color: var(--c-gray); }
+  .d-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .d-card li {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--c-gray);
+    line-height: 1.45;
+    padding-left: 16px;
+    position: relative;
+  }
+  .d-card li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--c-light);
+  }
+  .d-card li b { color: var(--c-navy); font-weight: 800; }
+  .meta-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .meta-line .lbl { font-size: 21px; font-weight: 800; color: var(--c-navy); margin-right: 6px; }
+  .meta-line .tag {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--c-deep);
+    background: var(--c-blue-bg);
+    padding: 8px 18px;
+    border-radius: 999px;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 28px;">
+          <h1 class="title">사용한 데이터</h1>
+          <div class="data-cards">
+            <div class="d-card">
+              <div class="ttl">🏛️ 국가법령정보센터 API <small>law.go.kr</small></div>
+              <ul>
+                <li><b>법령 16종</b> — 주택임대차보호법·시행령, 민법, 공인중개사법, 전세사기피해자 특별법 등</li>
+                <li><b>판례 6개 쟁점</b> — 전세사기·보증금권리·경매배당·수선원상회복·중개·갱신종료</li>
+                <li><b>법령해석례 3개 쟁점</b></li>
+              </ul>
+            </div>
+            <div class="d-card">
+              <div class="ttl">📄 공공 PDF 16종</div>
+              <ul>
+                <li>임대차분쟁조정 사례집 <b>2021~2025</b> (국토교통부·한국부동산원)</li>
+                <li>주택임대차 상담사례집 · 가이드북</li>
+                <li>표준계약서 (개정 전·후)</li>
+                <li>서울시 전세사기 상담 자료</li>
+              </ul>
+            </div>
+            <div class="d-card">
+              <div class="ttl">🌐 웹 자료</div>
+              <ul>
+                <li>등기부등본 확인법 가이드</li>
+                <li>전세사기 예방 체크리스트</li>
+              </ul>
+            </div>
+          </div>
+          <div class="meta-line">
+            <span class="lbl">메타데이터 태깅 4축</span>
+            <span class="tag">source_type</span>
+            <span class="tag">authority — 효력 위계</span>
+            <span class="tag">stage — pre·post</span>
+            <span class="tag">issue — 쟁점</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

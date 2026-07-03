@@ -1,0 +1,366 @@
+/* ==========================================================================
+   홈쉴드(HomeShield) 발표 슬라이드 — 공통 스타일
+   디자인 원칙 (reveal.js 계열 미니멀):
+   1. 콘텐츠는 화면 정중앙 배치 (짧으면 중앙, 길면 내부 스크롤)
+   2. 텍스트 최소 20px — 요소 수를 줄여 크게
+   3. 장식 절제: 옅은 배경 카드, 그림자·테두리 최소화
+   4. 최하단 5px 브랜드 블루 프로그레스 바
+   ========================================================================== */
+
+:root {
+  --c-primary: #2563eb;
+  --c-deep: #2f5fe0;
+  --c-light: #3b82f6;
+  --c-navy: #1a1a1a;
+  --c-gray: #6b7280;
+  --c-gray-bg: #f3f4f6;
+  --c-blue-bg: #eaf0ff;
+  --c-yellow: #f5df4e;
+  --c-white: #ffffff;
+  --c-red: #dc2626;
+  --c-red-bg: #fef2f2;
+
+  --radius: 16px;
+  --font-main: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+
+  /* 타이포 스케일 — 본문 최소 20px */
+  --fs-hero: 60px;
+  --fs-title: 42px;
+  --fs-section: 26px;
+  --fs-body: 22px;
+  --fs-caption: 20px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-main);
+  color: var(--c-navy);
+  background: #e8ebf0;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------------
+   16:9 스케일 프레임 — 1280x720 캔버스를 뷰포트에 맞춰 축소/확대
+   ------------------------------------------------------------------------ */
+.slide-viewport {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slide-canvas {
+  width: 1280px;
+  height: 720px;
+  flex: none;
+  background: var(--c-white);
+  position: relative;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  transform-origin: center center;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------------------------
+   얇은 상단 바 — 로고 + 페이지 번호만
+   ------------------------------------------------------------------------ */
+.topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 36px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.topbar .topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar .topbar-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.topbar .topbar-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--c-primary);
+}
+
+.topbar .topbar-page {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--c-gray);
+}
+
+.topbar.on-dark .topbar-name { color: var(--c-white); }
+.topbar.on-dark .topbar-page { color: rgba(255, 255, 255, 0.7); }
+
+/* ------------------------------------------------------------------------
+   중앙 콘텐츠 영역 — 짧으면 정중앙, 길면 세로 스크롤
+   ------------------------------------------------------------------------ */
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 5px; /* 프로그레스 바 높이만큼 */
+  padding: 64px 80px 44px;
+  overflow-y: auto;
+  display: flex;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(37, 99, 235, 0.28) transparent;
+}
+
+.content::-webkit-scrollbar { width: 6px; }
+.content::-webkit-scrollbar-track { background: transparent; }
+.content::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 235, 0.28);
+  border-radius: 3px;
+}
+
+.content-inner {
+  margin: auto;            /* 콘텐츠가 짧으면 정중앙 정렬 */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+/* 제목 */
+.title {
+  font-size: var(--fs-title);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.title .accent { color: var(--c-primary); }
+
+.subtitle {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: var(--c-gray);
+  text-align: center;
+  margin-top: -14px;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------------
+   공통 컴포넌트 — 옅은 배경 카드 (내용에 딱 맞게)
+   ------------------------------------------------------------------------ */
+.card {
+  background: var(--c-gray-bg);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+}
+
+.card-blue { background: var(--c-blue-bg); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: var(--c-blue-bg);
+  color: var(--c-deep);
+  white-space: nowrap;
+}
+
+.chip.gray { background: var(--c-gray-bg); color: var(--c-gray); }
+.chip.navy { background: var(--c-navy); color: var(--c-white); }
+
+/* 그라데이션 배경 (표지/마무리) */
+.bg-gradient {
+  background: linear-gradient(150deg, #14224f 0%, var(--c-deep) 62%, var(--c-primary) 100%);
+  color: var(--c-white);
+}
+
+/* ------------------------------------------------------------------------
+   프로그레스 바 (nav.js가 폭 설정)
+   ------------------------------------------------------------------------ */
+.progress-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  background: rgba(37, 99, 235, 0.12);
+  z-index: 40;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--c-primary);
+  transition: width 0.2s ease;
+}
+
+/* ------------------------------------------------------------------------
+   내비게이션 컨트롤 (우하단 플로팅)
+   ------------------------------------------------------------------------ */
+.nav-controls {
+  position: absolute;
+  right: 22px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 50;
+}
+
+.nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(26, 26, 26, 0.35);
+  color: var(--c-white);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.nav-btn:hover { background: rgba(37, 99, 235, 0.9); }
+.nav-btn:disabled { opacity: 0.25; cursor: default; }
+.nav-btn:disabled:hover { background: rgba(26, 26, 26, 0.35); }
+
+.nav-page-indicator {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-navy);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.bg-gradient .nav-page-indicator {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--c-white);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ------------------------------------------------------------------------
+   목차(TOC) 오버레이
+   ------------------------------------------------------------------------ */
+.toc-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 35, 0.88);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.toc-overlay.open { display: flex; }
+
+.toc-panel {
+  width: min(1060px, 92vw);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--c-white);
+  border-radius: 20px;
+  padding: 34px 38px 28px;
+  scrollbar-width: thin;
+}
+
+.toc-panel-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.toc-panel-header h2 {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.toc-panel-header .toc-hint {
+  font-size: 16px;
+  color: var(--c-gray);
+  font-weight: 600;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--c-gray-bg);
+  background: var(--c-white);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  font-family: var(--font-main);
+}
+
+.toc-item:hover { border-color: var(--c-light); background: var(--c-blue-bg); }
+.toc-item.current { border-color: var(--c-primary); background: var(--c-blue-bg); }
+
+.toc-item .toc-num {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--c-gray-bg);
+  color: var(--c-gray);
+  font-size: 15px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.toc-item.current .toc-num { background: var(--c-primary); color: var(--c-white); }
+
+.toc-item .toc-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--c-navy);
+}
+
+.toc-item.current .toc-title { color: var(--c-deep); }
+
+/* 유틸리티 */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.gap-20 { gap: 20px; }
+.gap-28 { gap: 28px; }
+.text-center { text-align: center; }

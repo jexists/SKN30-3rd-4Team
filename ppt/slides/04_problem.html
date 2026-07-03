@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 문제 정의 · 선정 배경</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .quote {
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.55;
+    text-align: center;
+    max-width: 980px;
+    color: var(--c-navy);
+  }
+  .quote .hl { color: var(--c-primary); }
+  .problem-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+  .p-card {
+    background: var(--c-gray-bg);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+  .p-card .ic { font-size: 36px; }
+  .p-card .ttl { font-size: 23px; font-weight: 800; }
+  .p-card .cap { font-size: 20px; font-weight: 500; color: var(--c-gray); line-height: 1.45; }
+  .strip {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--c-deep);
+    background: var(--c-blue-bg);
+    border-radius: 999px;
+    padding: 14px 34px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 30px;">
+          <h1 class="title">문제 정의 · 선정 배경</h1>
+          <p class="quote">
+            &ldquo;전·월세 계약서의 <span class="hl">특약 한 줄</span>, 등기부의 <span class="hl">근저당 한 건</span>이
+            보증금 전체를 좌우한다.<br />하지만 사회초년생은 무엇을 봐야 하는지조차 모른 채 도장을 찍는다.&rdquo;
+          </p>
+          <div class="problem-cards">
+            <div class="p-card">
+              <span class="ic">🔍</span>
+              <span class="ttl">정보 비대칭</span>
+              <span class="cap">등기부·특약·법령<br />해석 지식 부족</span>
+            </div>
+            <div class="p-card">
+              <span class="ic">⚠️</span>
+              <span class="ttl">전세사기 급증</span>
+              <span class="cap">깡통전세·이중계약<br />신탁사기 수법 다양화</span>
+            </div>
+            <div class="p-card">
+              <span class="ic">⚖️</span>
+              <span class="ttl">분쟁 빈발</span>
+              <span class="cap">수리 책임·보증금 반환<br />근거 몰라 권리 행사 실패</span>
+            </div>
+            <div class="p-card">
+              <span class="ic">💸</span>
+              <span class="ttl">상담 장벽</span>
+              <span class="cap">변호사 상담은<br />비용·접근성 부담</span>
+            </div>
+          </div>
+          <div class="strip">&lsquo;확인할 수 있었던 위험&rsquo;과 &lsquo;실제로 확인한 위험&rsquo;의 괴리 &rarr; 그 틈으로 보증금이 새어 나간다</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

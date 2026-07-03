@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 프로젝트 시연</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  /* 예외 레이아웃: 스케일 프레임 없이 100vw x 100vh 풀스크린 iframe */
+  html, body { overflow: hidden; background: var(--c-white); }
+
+  .demo-fallback {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background: var(--c-gray-bg);
+    z-index: 1;
+    text-align: center;
+    padding: 40px;
+  }
+  .demo-fallback img { width: 110px; height: 110px; border-radius: 50%; }
+  .demo-fallback h1 { font-size: 34px; font-weight: 800; }
+  .demo-fallback p { font-size: 22px; font-weight: 500; color: var(--c-gray); line-height: 1.6; }
+  .demo-fallback code {
+    display: inline-block;
+    font-family: Consolas, monospace;
+    font-size: 21px;
+    font-weight: 700;
+    background: var(--c-navy);
+    color: var(--c-yellow);
+    padding: 12px 26px;
+    border-radius: 12px;
+  }
+
+  .demo-frame {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+    background: transparent;
+  }
+
+  /* iframe 위 최소 오버레이 — 우하단 플로팅 버튼 (nav.js가 body에 부착) */
+  .nav-controls { position: fixed; z-index: 100; }
+  .progress-track { position: fixed; z-index: 100; }
+</style>
+</head>
+<body>
+  <!-- 서버 미기동 시 iframe 뒤로 보이는 안내 배경 -->
+  <div class="demo-fallback">
+    <img src="../assets/logo.png" alt="홈쉴드 로고" />
+    <h1>프로젝트 시연</h1>
+    <p>Streamlit 앱을 먼저 실행하세요 &mdash; 실행 후 이 슬라이드를 새로고침(F5)</p>
+    <code>uv run streamlit run app/main.py</code>
+    <p style="font-size: 20px;">localhost:8501</p>
+  </div>
+
+  <!-- 실제 앱 — 로드 성공 시 안내를 덮음 -->
+  <iframe class="demo-frame" src="http://localhost:8501" title="홈쉴드 Streamlit 앱 시연" allow="clipboard-write"></iframe>
+
+  <script src="../shared/nav.js"></script>
+  <script>
+    /* iframe 로드 실패(서버 미기동) 시 iframe을 숨겨 배경 안내가 보이게 처리.
+       크로스오리진 특성상 onerror가 항상 발화하지 않으므로 fetch 프로브 병행. */
+    (function () {
+      var frame = document.querySelector(".demo-frame");
+      function showFallback() { frame.style.display = "none"; }
+      frame.addEventListener("error", showFallback);
+      /* http(s) 문맥에서만 프로브 (file:// 에서는 CORS로 판단 불가 → iframe 유지) */
+      if (window.location.protocol.indexOf("http") === 0 && window.fetch) {
+        fetch("http://localhost:8501", { mode: "no-cors" }).catch(showFallback);
+      }
+    })();
+  </script>
+</body>
+</html>

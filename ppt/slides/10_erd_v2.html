@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — ERD ② 단일 테이블</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .erd2 {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    align-items: stretch;
+  }
+  .tbl {
+    flex: 1.15;
+    background: var(--c-navy);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .tbl .h {
+    background: var(--c-primary);
+    color: var(--c-white);
+    font-size: 24px;
+    font-weight: 800;
+    padding: 14px 26px;
+    font-family: Consolas, monospace;
+  }
+  .tbl .r {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 13px 26px;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    gap: 12px;
+  }
+  .tbl .r .n { font-size: 21px; font-weight: 800; color: var(--c-yellow); font-family: Consolas, monospace; }
+  .tbl .r .d { font-size: 20px; font-weight: 500; color: rgba(255, 255, 255, 0.75); }
+  .tbl .r .t { font-size: 20px; font-weight: 600; color: rgba(255, 255, 255, 0.55); font-family: Consolas, monospace; white-space: nowrap; }
+  .idxs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .idx {
+    background: var(--c-blue-bg);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+  .idx .n { font-size: 22px; font-weight: 800; color: var(--c-primary); font-family: Consolas, monospace; }
+  .idx .d { font-size: 20px; font-weight: 600; color: var(--c-deep); line-height: 1.4; }
+  .qline {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--c-white);
+    background: var(--c-navy);
+    border-radius: 999px;
+    padding: 14px 34px;
+    text-align: center;
+    font-family: Consolas, monospace;
+  }
+  .qline .k { color: var(--c-yellow); font-family: var(--font-main); margin-right: 10px; }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 24px;">
+          <h1 class="title">ERD ② 단일 테이블 <span class="accent">kb_chunks</span></h1>
+          <div class="erd2">
+            <div class="tbl">
+              <div class="h">kb_chunks</div>
+              <div class="r"><span class="n">id</span><span class="d">기본 키</span><span class="t">BIGSERIAL PK</span></div>
+              <div class="r"><span class="n">content</span><span class="d">청크 원문</span><span class="t">TEXT</span></div>
+              <div class="r"><span class="n">embedding</span><span class="d">의미 검색 벡터</span><span class="t">VECTOR(1024)</span></div>
+              <div class="r"><span class="n">metadata</span><span class="d">태깅 4축 메타</span><span class="t">JSONB</span></div>
+              <div class="r"><span class="n">created_at</span><span class="d">생성 시각</span><span class="t">TIMESTAMPTZ</span></div>
+            </div>
+            <div class="idxs">
+              <div class="idx"><span class="n">HNSW</span><span class="d">벡터 코사인 근사 검색</span></div>
+              <div class="idx"><span class="n">GIN</span><span class="d">어떤 metadata 키든 필터</span></div>
+              <div class="idx"><span class="n">year</span><span class="d">최신성 필터</span></div>
+            </div>
+          </div>
+          <div class="qline"><span class="k">검색 쿼리</span>1 - (embedding &lt;=&gt; query) 정렬 + JSONB @&gt; 메타필터</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

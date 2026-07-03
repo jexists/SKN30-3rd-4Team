@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 마무리</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .close-solid {
+    background: #101c42;
+    color: var(--c-white);
+  }
+
+  .close-solid .nav-page-indicator {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--c-white);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .close-logo {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .close-thanks {
+    font-size: var(--fs-hero);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+  .close-tagline {
+    font-size: 25px;
+    font-weight: 700;
+    color: var(--c-yellow);
+    text-align: center;
+  }
+  .close-qa {
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+  }
+  .close-members {
+    display: flex;
+    gap: 26px;
+    margin-top: 8px;
+  }
+  .close-members span { font-size: 21px; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas close-solid">
+      <div class="content">
+        <div class="content-inner" style="gap: 24px;">
+          <img src="../assets/logo.png" alt="홈쉴드 로고" class="close-logo" />
+          <h1 class="close-thanks">감사합니다</h1>
+          <p class="close-tagline">홈쉴드 — 세입자의 권리를 법으로 지키다</p>
+          <p class="close-qa">Q&amp;A — 궁금한 점을 편하게 질문해 주세요</p>
+          <div class="close-members">
+            <span>김진남</span><span>정민규</span><span>정주애</span><span>천성배</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

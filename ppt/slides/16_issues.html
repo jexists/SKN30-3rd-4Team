@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 주요 이슈 및 해결</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .issues {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 1080px;
+  }
+  .issue {
+    display: grid;
+    grid-template-columns: 1fr 44px 1fr;
+    align-items: center;
+    gap: 0;
+  }
+  .before, .after {
+    border-radius: var(--radius);
+    padding: 18px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+    justify-content: center;
+  }
+  .before { background: var(--c-red-bg); }
+  .after { background: var(--c-blue-bg); }
+  .before .tag { font-size: 20px; font-weight: 800; color: var(--c-red); }
+  .after .tag { font-size: 20px; font-weight: 800; color: var(--c-primary); }
+  .before .d, .after .d { font-size: 20px; font-weight: 600; line-height: 1.45; }
+  .before .d { color: #7f1d1d; }
+  .after .d { color: var(--c-deep); }
+  .issue .arr {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--c-gray);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 26px;">
+          <h1 class="title">주요 이슈 및 해결</h1>
+          <div class="issues">
+            <div class="issue">
+              <div class="before">
+                <span class="tag">문제</span>
+                <span class="d">검색 결과 0건 무작위 누락 — issues 필터 이중 리스트 래핑으로 JSONB @&gt; 차원 불일치</span>
+              </div>
+              <span class="arr">&rarr;</span>
+              <div class="after">
+                <span class="tag">해결</span>
+                <span class="d">필터 매핑 패치 + USE_FILTERS=False 폴백 모드 이중화</span>
+              </div>
+            </div>
+            <div class="issue">
+              <div class="before">
+                <span class="tag">문제</span>
+                <span class="d">PDF 텍스트층 손상 — ToUnicode 깨짐으로 숫자 누락</span>
+              </div>
+              <span class="arr">&rarr;</span>
+              <div class="after">
+                <span class="tag">해결</span>
+                <span class="d">본문 숫자 밀도 자동 감지 + GPT-4o Vision 강제 라우팅</span>
+              </div>
+            </div>
+            <div class="issue">
+              <div class="before">
+                <span class="tag">문제</span>
+                <span class="d">OpenAI 429 폭주 — SDK 내부 재시도와 자체 재시도 중첩</span>
+              </div>
+              <span class="arr">&rarr;</span>
+              <div class="after">
+                <span class="tag">해결</span>
+                <span class="d">SDK 재시도 끄고 지수 백오프 일원화</span>
+              </div>
+            </div>
+            <div class="issue">
+              <div class="before">
+                <span class="tag">문제</span>
+                <span class="d">grade LLM 판정의 지연·비용</span>
+              </div>
+              <span class="arr">&rarr;</span>
+              <div class="after">
+                <span class="tag">해결</span>
+                <span class="d">검색 유사도 결정론 게이트로 대체 — LLM 호출 0회</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

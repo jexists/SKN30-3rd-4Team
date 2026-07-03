@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 팀 소개</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .team-def {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--c-gray);
+    text-align: center;
+    line-height: 1.6;
+    max-width: 900px;
+  }
+  .team-def b { color: var(--c-primary); font-weight: 800; }
+  .team-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+  .team-card {
+    background: var(--c-gray-bg);
+    border-radius: var(--radius);
+    padding: 28px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+  }
+  .team-name { font-size: 26px; font-weight: 800; }
+  .team-lead {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--c-white);
+    background: var(--c-primary);
+    padding: 4px 16px;
+    border-radius: 999px;
+  }
+  .team-roles {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--c-gray);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 34px;">
+          <h1 class="title">팀 소개</h1>
+          <p class="team-def">
+            <b>홈쉴드(HomeShield)</b> — 전·월세 계약과 분쟁에서 세입자의 권리를 지키기 위해<br />
+            법령과 판례를 근거로 위험을 검증하는 <b>주거 안전 보호팀</b>
+          </p>
+          <div class="team-cards">
+            <div class="team-card">
+              <div class="team-name">김진남</div>
+              <div class="team-lead">팀장</div>
+              <div class="team-roles">랭그래프 설계<br />DB · 성능평가</div>
+            </div>
+            <div class="team-card">
+              <div class="team-name">정민규</div>
+              <div class="team-roles" style="margin-top: 38px;">데이터 전처리·청킹<br />성능평가</div>
+            </div>
+            <div class="team-card">
+              <div class="team-name">정주애</div>
+              <div class="team-roles" style="margin-top: 38px;">데이터 수집·임베딩<br />프론트</div>
+            </div>
+            <div class="team-card">
+              <div class="team-name">천성배</div>
+              <div class="team-roles" style="margin-top: 38px;">데이터 수집<br />프롬프트 엔지니어링<br />성능평가</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

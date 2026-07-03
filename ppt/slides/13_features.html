@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 핵심 기능</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .ocr-hero {
+    width: 100%;
+    background: var(--c-blue-bg);
+    border-radius: var(--radius);
+    padding: 26px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .ocr-hero .ttl { font-size: 26px; font-weight: 800; color: var(--c-deep); text-align: center; }
+  .ocr-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .ocr-steps .s {
+    background: var(--c-white);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--c-navy);
+    text-align: center;
+    line-height: 1.35;
+  }
+  .ocr-steps .a { font-size: 22px; font-weight: 800; color: var(--c-primary); }
+  .feat-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+  .f-card {
+    background: var(--c-gray-bg);
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .f-card .t { font-size: 22px; font-weight: 800; }
+  .f-card .c { font-size: 20px; font-weight: 500; color: var(--c-gray); line-height: 1.45; }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 26px;">
+          <h1 class="title">핵심 기능</h1>
+          <div class="ocr-hero">
+            <div class="ttl">📄 OCR 계약서·등기부 판독</div>
+            <div class="ocr-steps">
+              <div class="s">업로드<br /><small style="font-weight:500;color:var(--c-gray);">PDF·이미지 다중</small></div>
+              <span class="a">&rarr;</span>
+              <div class="s">GPT-4o OCR<br /><small style="font-weight:500;color:var(--c-gray);">텍스트 추출</small></div>
+              <span class="a">&rarr;</span>
+              <div class="s">자동 추출<br /><small style="font-weight:500;color:var(--c-gray);">근저당·선순위·보증금·특약</small></div>
+              <span class="a">&rarr;</span>
+              <div class="s">전세가율 계산</div>
+              <span class="a">&rarr;</span>
+              <div class="s">깡통전세<br />위험 판정</div>
+            </div>
+          </div>
+          <div class="feat-cards">
+            <div class="f-card">
+              <div class="t">⚖️ 근거 인용 상담</div>
+              <div class="c">법령명·조항 / 법원·사건번호 명시 — 결론은 법령·판례, 사례는 참고</div>
+            </div>
+            <div class="f-card">
+              <div class="t">💬 멀티턴 세션</div>
+              <div class="c">지시대명사 해소 — &ldquo;그거 어떻게 해요?&rdquo;도 맥락으로 검색</div>
+            </div>
+            <div class="f-card">
+              <div class="t">🛡️ 환각 검증 루프</div>
+              <div class="c">verify 검증 + 법적 고지 자동 포함</div>
+            </div>
+            <div class="f-card">
+              <div class="t">🚪 잡담 분기</div>
+              <div class="c">인사·잡담엔 검색 없이 응답 — 비용·지연 절약</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

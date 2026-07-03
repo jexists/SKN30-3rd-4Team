@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 목표 & 차별점</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .twotrack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    width: 100%;
+  }
+  .track {
+    border-radius: var(--radius);
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .track.pre { background: var(--c-blue-bg); }
+  .track.post { background: var(--c-navy); color: var(--c-white); }
+  .track .tag {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--c-primary);
+  }
+  .track.post .tag { color: var(--c-yellow); }
+  .track .ttl { font-size: 27px; font-weight: 800; line-height: 1.3; }
+  .track .cap { font-size: 21px; font-weight: 500; line-height: 1.55; color: var(--c-gray); }
+  .track.post .cap { color: rgba(255, 255, 255, 0.8); }
+  .diff-note {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .diff-note .hl { color: var(--c-primary); }
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    justify-content: center;
+  }
+  .flow .step {
+    background: var(--c-gray-bg);
+    border-radius: var(--radius);
+    padding: 13px 26px;
+    text-align: center;
+  }
+  .flow .step .n { font-size: 20px; font-weight: 800; color: var(--c-primary); }
+  .flow .step .t { font-size: 22px; font-weight: 800; margin-top: 2px; }
+  .flow .step .c { font-size: 20px; font-weight: 500; color: var(--c-gray); margin-top: 4px; line-height: 1.4; }
+  .flow .arr { font-size: 26px; font-weight: 800; color: var(--c-light); }
+  .principle {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--c-deep);
+    background: var(--c-blue-bg);
+    border-radius: 999px;
+    padding: 13px 32px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 20px;">
+          <h1 class="title">목표 — <span class="accent">계약 전 + 계약 후</span> 투트랙</h1>
+          <p class="diff-note">
+            대부분의 서비스는 계약 <span class="hl">전</span> 위험 진단에서 멈춘다.<br />
+            홈쉴드는 <span class="hl">계약 후 분쟁까지</span> 법령·판례 근거로 지원 — 이것이 차별점.
+          </p>
+          <div class="twotrack">
+            <div class="track pre">
+              <span class="tag">계약 전 · 예방</span>
+              <span class="ttl">전세사기 위험 진단</span>
+              <span class="cap">등기부·특약 분석 · 전세가율 계산<br />깡통전세 위험 판정</span>
+            </div>
+            <div class="track post">
+              <span class="tag">계약 후 · 분쟁 대응</span>
+              <span class="ttl">근거 포함 분쟁 상담</span>
+              <span class="cap">수리 책임 · 보증금 반환 · 계약갱신<br />법령·판례 인용 멀티턴 상담</span>
+            </div>
+          </div>
+          <div class="flow">
+            <div class="step">
+              <div class="n">1단계</div>
+              <div class="t">인덱싱</div>
+              <div class="c">법령·판례 수집 → 메타태깅<br />→ pgvector 인덱스</div>
+            </div>
+            <span class="arr">&rarr;</span>
+            <div class="step">
+              <div class="n">2단계</div>
+              <div class="t">검색 RAG</div>
+              <div class="c">질의 분석 → 메타필터+의미검색<br />→ 조항·판례 추출</div>
+            </div>
+            <span class="arr">&rarr;</span>
+            <div class="step">
+              <div class="n">3단계</div>
+              <div class="t">진단·상담</div>
+              <div class="c">계약 전 위험 진단<br />계약 후 근거 상담</div>
+            </div>
+          </div>
+          <div class="principle">정량 판단(전세가율)은 결정론 코드 · 법령 해석은 RAG — 수치 환각 차단 하이브리드</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

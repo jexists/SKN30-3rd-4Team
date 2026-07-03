@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 HomeShield — 표지</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .cover-solid {
+    background: #101c42;
+    color: var(--c-white);
+  }
+
+  .cover-solid .nav-page-indicator {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--c-white);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .cover-stage {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+    gap: 40px;
+    padding: 0 90px;
+  }
+
+  .cover-stage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: repeating-linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.6) 0,
+      rgba(255, 255, 255, 0.6) 1px,
+      transparent 1px,
+      transparent 64px
+    );
+  }
+
+  .cover-left {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .cover-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    padding: 8px 18px;
+  }
+
+  .cover-eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c-yellow);
+  }
+
+  .cover-title {
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.14;
+  }
+
+  .cover-title .accent { color: var(--c-yellow); }
+
+  .cover-kicker {
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.88);
+    margin-top: -6px;
+  }
+
+  .cover-desc {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.65;
+    max-width: 480px;
+  }
+
+  .cover-divider {
+    width: 56px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--c-yellow);
+    margin: 8px 0 2px;
+  }
+
+  .cover-credit-label {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .cover-members {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .cover-members span {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--c-white);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    padding: 7px 16px;
+  }
+
+  .cover-right {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cover-orbit {
+    position: relative;
+    width: 320px;
+    height: 320px;
+  }
+
+  .cover-orbit-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(255, 255, 255, 0.32);
+    animation: cover-spin 46s linear infinite;
+  }
+
+  .cover-orbit-ring::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--c-yellow);
+    box-shadow: 0 0 12px 2px rgba(245, 223, 78, 0.65);
+  }
+
+  .cover-logo {
+    position: absolute;
+    inset: 42px;
+    width: calc(100% - 84px);
+    height: calc(100% - 84px);
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--c-white);
+    border: 4px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 24px 50px rgba(10, 14, 35, 0.45);
+  }
+
+  .cover-tag {
+    position: absolute;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-navy);
+    background: rgba(255, 255, 255, 0.94);
+    border-radius: 999px;
+    padding: 8px 14px;
+    white-space: nowrap;
+    box-shadow: 0 10px 22px rgba(10, 14, 35, 0.28);
+    animation: cover-float 5s ease-in-out infinite;
+  }
+
+  .cover-tag-1 { top: -8px; right: -34px; animation-delay: 0s; }
+  .cover-tag-2 { bottom: 34px; left: -58px; animation-delay: 1.1s; }
+  .cover-tag-3 { bottom: -10px; right: 4px; animation-delay: 2.2s; }
+
+  @keyframes cover-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes cover-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cover-orbit-ring, .cover-tag { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas cover-solid">
+      <div class="cover-stage">
+        <div class="cover-left">
+          <span class="cover-eyebrow">AI 주거 법률 리스크 진단</span>
+          <h1 class="cover-title">홈쉴드 <span class="accent">HomeShield</span></h1>
+          <p class="cover-kicker">전·월세 분쟁 팩트체커</p>
+          <p class="cover-desc">
+            계약 전 등기부·특약 진단부터 계약 후 분쟁 대응까지,<br />
+            법령·판례로 따져주는 세입자 법률 도우미
+          </p>
+          <div class="cover-divider"></div>
+          <span class="cover-credit-label">SKN30 3차 프로젝트 · 4조</span>
+          <div class="cover-members">
+            <span>김진남</span><span>정민규</span><span>정주애</span><span>천성배</span>
+          </div>
+        </div>
+        <div class="cover-right">
+          <div class="cover-orbit">
+            <div class="cover-orbit-ring"></div>
+            <img src="../assets/logo.png" alt="홈쉴드 로고" class="cover-logo" />
+            <span class="cover-tag cover-tag-1">등기부 분석</span>
+            <span class="cover-tag cover-tag-2">특약 진단</span>
+            <span class="cover-tag cover-tag-3">분쟁 대응</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

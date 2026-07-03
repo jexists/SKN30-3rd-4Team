@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — LangGraph 전체 구조</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .lg-wrap {
+    display: flex;
+    gap: 36px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .lg-img {
+    height: 528px;
+    flex: none;
+  }
+  .lg-points {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 560px;
+  }
+  .lg-pt {
+    background: var(--c-gray-bg);
+    border-radius: var(--radius);
+    padding: 20px 26px;
+  }
+  .lg-pt .t { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+  .lg-pt .t code {
+    font-family: Consolas, monospace;
+    color: var(--c-primary);
+    font-size: 21px;
+  }
+  .lg-pt .c { font-size: 20px; font-weight: 500; color: var(--c-gray); line-height: 1.5; }
+  .lg-pt.hl { background: var(--c-blue-bg); }
+  .lg-pt.hl .c { color: var(--c-deep); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 20px;">
+          <h1 class="title">LangGraph 전체 구조</h1>
+          <div class="lg-wrap">
+            <img class="lg-img" src="../assets/langgraph_main.png" alt="LangGraph 전체 그래프 — intake, chitchat, pre_contract, retrieve, grade, generate, verify" />
+            <div class="lg-points">
+              <div class="lg-pt">
+                <div class="t"><code>intake</code> 의도 분류</div>
+                <div class="c">잡담은 <b>chitchat</b>으로 — 검색 없이 즉시 응답 (비용·지연 절약)</div>
+              </div>
+              <div class="lg-pt">
+                <div class="t">재검색 루프 <code>grade → rewrite_query</code></div>
+                <div class="c">검색 품질 미달 시 쿼리 재작성 후 재검색 — 최대 2회</div>
+              </div>
+              <div class="lg-pt">
+                <div class="t">재생성 루프 <code>verify → bump_verify</code></div>
+                <div class="c">답변이 근거에 불충실하면 재생성 — 최대 1회</div>
+              </div>
+              <div class="lg-pt hl">
+                <div class="t">💾 멀티턴 상태 유지</div>
+                <div class="c">MemorySaver + thread_id 체크포인터 — 매 턴 그래프 재호출</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

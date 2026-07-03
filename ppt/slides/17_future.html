@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 확장 가능성 & 향후 과제</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+    max-width: 1080px;
+  }
+  .col {
+    border-radius: var(--radius);
+    padding: 26px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .col.expand { background: var(--c-blue-bg); }
+  .col.limit { background: var(--c-gray-bg); }
+  .col .h { font-size: 25px; font-weight: 800; }
+  .col.expand .h { color: var(--c-deep); }
+  .col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .col li {
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.45;
+    padding-left: 18px;
+    position: relative;
+  }
+  .col.expand li { color: var(--c-deep); }
+  .col.limit li { color: var(--c-gray); }
+  .col li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .col.expand li::before { background: var(--c-primary); }
+  .col.limit li::before { background: var(--c-gray); }
+  .col li b { font-weight: 800; color: var(--c-navy); }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 30px;">
+          <h1 class="title">확장 가능성 &amp; 향후 과제</h1>
+          <div class="cols">
+            <div class="col expand">
+              <div class="h">🚀 확장 가능성</div>
+              <ul>
+                <li>법령 개정·신규 판례는 <b>문서 인덱싱만으로 반영</b></li>
+                <li>실시간 부동산 시세 API 연동 — 전세가율 자동화</li>
+                <li>상가 임대차 등 도메인 확장</li>
+                <li>태그 스키마 정규화 후 메타필터 재활성화</li>
+              </ul>
+            </div>
+            <div class="col limit">
+              <div class="h">🧗 한계 · 향후 과제</div>
+              <ul>
+                <li>계약 후(post) 전용 서브그래프 분화</li>
+                <li>매매 시세 수동 입력 의존</li>
+                <li>마크다운 표 판독 프롬프트 고도화</li>
+                <li>HNSW 파라미터 튜닝</li>
+                <li>재작성 루프 레이턴시 병목 개선</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

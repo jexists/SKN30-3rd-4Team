@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — ERD ① 물리 + 논리 스키마</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .erd-wrap {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    align-items: stretch;
+  }
+  .phys {
+    width: 380px;
+    flex: none;
+    background: var(--c-navy);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .phys .h {
+    background: var(--c-primary);
+    color: var(--c-white);
+    font-size: 22px;
+    font-weight: 800;
+    padding: 12px 22px;
+    font-family: Consolas, monospace;
+  }
+  .phys .r {
+    padding: 11px 22px;
+    font-size: 20px;
+    font-family: Consolas, monospace;
+    color: rgba(255, 255, 255, 0.9);
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+  }
+  .phys .r b { color: var(--c-yellow); font-weight: 800; }
+  .phys .idx {
+    margin-top: auto;
+    padding: 12px 22px 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+  }
+  .logic {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .common {
+    background: var(--c-blue-bg);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--c-deep);
+    text-align: center;
+  }
+  .ents {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    flex: 1;
+  }
+  .ent {
+    background: var(--c-gray-bg);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+  }
+  .ent .t { font-size: 21px; font-weight: 800; margin-bottom: 6px; }
+  .ent .f { font-size: 20px; font-weight: 500; color: var(--c-gray); font-family: Consolas, monospace; }
+  .caption {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--c-deep);
+    background: var(--c-blue-bg);
+    border-radius: 999px;
+    padding: 13px 34px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 24px;">
+          <h1 class="title">ERD ① 물리 + 논리 스키마</h1>
+          <div class="erd-wrap">
+            <div class="phys">
+              <div class="h">kb_chunks</div>
+              <div class="r"><b>id</b> BIGSERIAL PK</div>
+              <div class="r">content TEXT</div>
+              <div class="r">embedding VECTOR(1024)</div>
+              <div class="r">metadata JSONB</div>
+              <div class="r">created_at TIMESTAMPTZ</div>
+              <div class="idx">인덱스 — HNSW cosine · GIN metadata · doc_year</div>
+            </div>
+            <div class="logic">
+              <div class="common">공통 메타: source_type · authority · stage · issue · doc_title · chunk_index</div>
+              <div class="ents">
+                <div class="ent"><div class="t">📜 법령</div><div class="f">law_name · article · 시행일</div></div>
+                <div class="ent"><div class="t">⚖️ 판례</div><div class="f">court · case_no · 선고일</div></div>
+                <div class="ent"><div class="t">📋 해석례</div><div class="f">안건번호 · 회신일</div></div>
+                <div class="ent"><div class="t">🗃️ 조정·상담사례</div><div class="f">사례번호 · 처리결과</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="caption">자유 스키마 JSONB — 문서 유형마다 다른 메타를 스키마 변경 없이 수용</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

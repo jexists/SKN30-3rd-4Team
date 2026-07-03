@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 기술 스택</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .stack-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 1020px;
+  }
+  .stack-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--c-gray-bg);
+    border-radius: var(--radius);
+    padding: 9px 26px;
+  }
+  .stack-row .cat {
+    width: 210px;
+    flex: none;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--c-primary);
+  }
+  .stack-row .items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    align-items: baseline;
+  }
+  .stack-row .items b { font-size: 22px; font-weight: 800; }
+  .stack-row .items i {
+    font-style: normal;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--c-gray);
+  }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 22px;">
+          <h1 class="title">기술 스택</h1>
+          <div class="stack-list">
+            <div class="stack-row">
+              <span class="cat">Language / Env</span>
+              <div class="items"><b>Python 3.13</b> <b>uv</b></div>
+            </div>
+            <div class="stack-row">
+              <span class="cat">Orchestration</span>
+              <div class="items"><b>LangChain</b> <b>LangGraph</b> <i>상태 그래프 · 멀티턴</i></div>
+            </div>
+            <div class="stack-row">
+              <span class="cat">LLM</span>
+              <div class="items">
+                <b>GPT-4.1-mini</b> <i>답변 생성</i>
+                <b>GPT-4.1-nano</b> <i>분류·판정·재작성</i>
+                <b>GPT-4o</b> <i>OCR·Vision</i>
+              </div>
+            </div>
+            <div class="stack-row">
+              <span class="cat">Embedding</span>
+              <div class="items"><b>text-embedding-3-small</b> <i>1024차원</i></div>
+            </div>
+            <div class="stack-row">
+              <span class="cat">Vector DB</span>
+              <div class="items"><b>Supabase PostgreSQL + pgvector</b> <i>HNSW·GIN 인덱스</i> <b>psycopg3</b></div>
+            </div>
+            <div class="stack-row">
+              <span class="cat">Frontend</span>
+              <div class="items"><b>Streamlit</b> <i>멀티페이지</i></div>
+            </div>
+            <div class="stack-row">
+              <span class="cat">평가 / 관측</span>
+              <div class="items"><b>LangSmith</b> <i>노드별 추적</i> <b>RAGAS</b></div>
+            </div>
+            <div class="stack-row">
+              <span class="cat">문서 처리</span>
+              <div class="items"><b>PyMuPDF / pymupdf4llm</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+</body>
+</html>

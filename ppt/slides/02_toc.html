@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홈쉴드 — 목차</title>
+<link rel="stylesheet" href="../shared/style.css" />
+<style>
+  .toc-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+  .toc-card {
+    background: var(--c-gray-bg);
+    border-radius: var(--radius);
+    padding: 26px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    text-align: left;
+    font-family: var(--font-main);
+  }
+  .toc-card:hover { border-color: var(--c-primary); background: var(--c-blue-bg); }
+  .toc-card .num {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--c-primary);
+  }
+  .toc-card .ttl {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--c-navy);
+    line-height: 1.3;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-viewport">
+    <div class="slide-canvas">
+      <div class="topbar">
+        <div class="topbar-brand">
+          <img src="../assets/logo.png" class="topbar-logo" alt="" />
+          <span class="topbar-name">홈쉴드</span>
+        </div>
+        <span class="topbar-page"></span>
+      </div>
+      <div class="content">
+        <div class="content-inner" style="gap: 40px;">
+          <h1 class="title">목차</h1>
+          <div class="toc-cards">
+            <button class="toc-card" data-file="03_team.html">
+              <span class="num">01</span><span class="ttl">팀 소개</span>
+            </button>
+            <button class="toc-card" data-file="04_problem.html">
+              <span class="num">02</span><span class="ttl">문제 정의<br />선정 배경</span>
+            </button>
+            <button class="toc-card" data-file="05_goal.html">
+              <span class="num">03</span><span class="ttl">목표<br />기대효과</span>
+            </button>
+            <button class="toc-card" data-file="06_stack.html">
+              <span class="num">04</span><span class="ttl">기술 스택<br />데이터</span>
+            </button>
+            <button class="toc-card" data-file="09_erd_v1.html">
+              <span class="num">05</span><span class="ttl">시스템 설계<br />ERD · LangGraph</span>
+            </button>
+            <button class="toc-card" data-file="13_features.html">
+              <span class="num">06</span><span class="ttl">핵심 기능<br />성능 평가</span>
+            </button>
+            <button class="toc-card" data-file="15_demo.html">
+              <span class="num">07</span><span class="ttl">시연</span>
+            </button>
+            <button class="toc-card" data-file="16_issues.html">
+              <span class="num">08</span><span class="ttl">이슈<br />향후 과제</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../shared/nav.js"></script>
+  <script>
+    document.querySelectorAll(".toc-card").forEach(function (el) {
+      el.addEventListener("click", function () {
+        window.location.href = el.getAttribute("data-file");
+      });
+    });
+  </script>
+</body>
+</html>
