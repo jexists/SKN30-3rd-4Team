@@ -69,7 +69,7 @@ def _llm_json(prompt: str, fast: bool = True) -> dict:
     except json.JSONDecodeError:
         return {}
  
- 
+  
 def _history_text(state: "FactCheckState", n: int = 12) -> str:
     """최근 대화 n개를 프롬프트용 텍스트로. 법적 고지 꼬리는 제거해 노이즈 감소."""
     lines = []
