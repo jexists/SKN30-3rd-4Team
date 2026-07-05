@@ -1,32 +1,12 @@
 """
 graph.py
-전·월세 분쟁 팩트체커 — LangGraph 상태 그래프 (최적화 버전)
+전·월세 분쟁 팩트체커 — LangGraph 상태 그래프
 
 구조:
-  START → intake(의도분류+쿼리분석 통합, LLM 1회)
-        → chitchat → END
-        → (followup) generate           ← 직전 턴 검색 근거 재사용, 대화형 짧은 답변
-        → (문서 있음) ocr_extract → analyze_document → assess_risk → retrieve
-        → (질문만)   retrieve
-  retrieve → [결정론 라우터: 유사도 임계값] → generate | rewrite_query(→retrieve, 최대 1회)
-  generate → END
-
-intent 3종:
-  chitchat — 법률 무관 잡담 (검색 X)
-  followup — 직전 답변 확인·부연 (검색 X, 기존 retrieved 재사용, 해요체 2~4문장)
-  legal    — 새 법률 쟁점 (검색 O, 근거 기반 상담체 답변)
-
-v1 대비 변경:
-  - verify / bump_verify / 재생성 루프 제거
-      · temperature=0 + 근거 주입형 프롬프트에서 faithful=false 발생 빈도 대비
-        매 턴 LLM 1회 + 지연 비용이 더 컸음. 규칙 2~4가 grounding 을 담당.
-      · 환각이 실측되면 grade 약한 구간(top < GRADE_STRONG)에서만 조건부로 재도입 권장.
-  - classify_intent + analyze_pre_query → intake 1개 노드 (fast_llm 1회로 통합)
-  - grade_documents 노드 삭제 → retrieve 뒤 조건부 엣지(순수 함수)로 흡수
-  - calc_jeonse_ratio + assess_risk + build_pre_context → assess_risk 1개 노드
-  - pre 서브그래프 평탄화 (post 서브그래프 도입 시 다시 분리하면 됨)
-  - MAX_RETRIEVAL_ATTEMPTS 2 → 1
-  - generate 가 messages 에 AIMessage 를 적재 (멀티턴 히스토리 누락 버그 수정)
+  parent: START → (entry_router) → pre_contract | post_contract → 공통 응답 파이프라인 → END
+  pre subgraph : 문서 여부 라우팅 → OCR·서류분석·전세가율·위험판정 | 계약 질의 분석 → 컨텍스트
+  post subgraph: 쟁점 분류 → 컨텍스트
+  공통 파이프라인: retrieve → grade(→쿼리 재작성 루프) → generate → verify(→재생성 루프) → 법적 고지
 
 검색은 vs_method.search_similar(pgvector) 사용.
   ⚠️ 검색 결과는 {**metadata, content, similarity} 형태이며 metadata 키는 문서마다 다르다.
@@ -61,12 +41,13 @@ import vs_method  # search_similar / get_conn
 # LLM / 검색 연결
 # ──────────────────────────────────────────────
 llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0, timeout=30, max_retries=2)
-# 분류·재작성 등 짧은 보조 호출용 (빠르고 저렴) — 답변 생성은 위 llm 유지
+# 판정·분류·재작성 등 짧은 보조 호출용 (빠르고 저렴) — 답변 생성은 위 llm 유지
 fast_llm = ChatOpenAI(model="gpt-4.1-nano", temperature=0, timeout=20, max_retries=2)
 
-MAX_RETRIEVAL_ATTEMPTS = 1   # 쿼리 재작성 최대 1회
+MAX_RETRIEVAL_ATTEMPTS = 2   # 재검색 최대 2회 (recall 확보 우선)
+MAX_VERIFY_ATTEMPTS = 1      # 재생성 최대 1회
 
-# 결정론 grade 임계값 (text-embedding-3-small: 관련 조항 보통 0.3~0.6)
+# grade 결정론 게이트 임계값 (text-embedding-3-small: 관련 조항 보통 0.3~0.6)
 GRADE_STRONG = 0.45          # top-1 이 이 이상이면 충분 → 바로 생성
 GRADE_WEAK = 0.35            # top-1 이 이 미만이면 부족 → (남은 횟수 내) 재작성
 
@@ -88,6 +69,7 @@ def _llm_json(prompt: str, fast: bool = True) -> dict:
     except json.JSONDecodeError:
         return {}
 
+
 def _history_text(state: "FactCheckState", n: int = 12) -> str:
     """최근 대화 n개를 프롬프트용 텍스트로. 법적 고지 꼬리는 제거해 노이즈 감소."""
     lines = []
@@ -99,7 +81,7 @@ def _history_text(state: "FactCheckState", n: int = 12) -> str:
 
 
 def _doc_context(state: "FactCheckState") -> str:
-    """OCR/서류 분석(findings)을 답변 프롬프트용 텍스트로. 없으면 빈 문자열."""
+    """OCR/서류 분석(findings)을 답변·검증 프롬프트용 텍스트로. 없으면 빈 문자열."""
     f = state.get("findings") or {}
 
     def won(v):
@@ -158,7 +140,10 @@ class FactCheckState(TypedDict, total=False):
     retrieved: list
     retrieval_attempts: int
     answer: str
+    verify_attempts: int
     _last_query: str                  # 직전 검색 쿼리 (동일 쿼리 재검색 스킵용)
+    _grade: dict                      # 관련성 판정 임시 채널
+    _verify: dict                     # 충실성 판정 임시 채널
 
 
 # ══════════════════════════════════════════════
@@ -193,59 +178,12 @@ def run_ocr(document_path: str) -> str:
 
 
 # ══════════════════════════════════════════════
-# 진입: 의도 분류 + 검색 쿼리 분석 (LLM 1회로 통합)
+# 계약 전 서브그래프
 # ══════════════════════════════════════════════
-def intake(state: FactCheckState) -> dict:
-    """의도 분류(chitchat|legal|followup) + 독립형 검색 쿼리 + 쟁점 태그를 fast_llm 한 번에.
-    followup: 직전 답변을 확인·부연하는 후속 질문 → 재검색 없이 기존 근거로 대화형 답변."""
-    v = _llm_json(
-        "사용자 메시지를 분석하라.\n"
-        "1) intent 분류.\n"
-        "  chitchat: 인사·감사·잡담·자기소개·서비스 사용법 등 법률과 무관.\n"
-        "  followup: 직전 상담봇 답변에 대한 확인·부연·다음 행동 질문. "
-        "이미 한 답변의 내용으로 충분히 답할 수 있는 질문. "
-        "(예: '그럼 연락드리면 되?', '그렇게 하면 끝이야?', '아까 그거 다시 설명해줘')\n"
-        "  legal: 새로운 법률 쟁점이라 법령·판례 검색이 필요한 질문. "
-        "후속 질문이라도 새 쟁점(예: '그럼 안 고쳐주면 월세 안 내도 돼?')이면 legal. 모호하면 legal.\n"
-        "2) intent 가 legal 이면, 대화 맥락을 반영해 마지막 질문을 그 자체로 검색 가능한 "
-        "독립형 쿼리로 만들어라. 지시대명사(그거·그때·거기 등)는 맥락으로 풀어 완전한 문장으로. "
-        "chitchat·followup 이면 query 는 빈 문자열.\n"
-        'keys: intent("chitchat"|"followup"|"legal"), query(자립형 검색 문장), '
-        'issues(태그 리스트: deposit,opposing_power,priority_repayment,fraud,special_terms 중).\n\n'
-        f"[최근 대화]\n{_history_text(state)}\n\n마지막 질문: {state.get('question','')}"
-    )
-    return {
-        "intent": v.get("intent", "legal"),
-        "query": v.get("query") or state.get("question", ""),
-        "issues": v.get("issues", []),
-        "retrieval_attempts": 0,        # 턴마다 초기화
-    }
+def pre_entry_router(state: FactCheckState) -> str:
+    return "doc" if state.get("has_document") else "question"
 
 
-def intake_router(state: FactCheckState) -> str:
-    intent = state.get("intent")
-    if intent == "chitchat":
-        return "chitchat"
-    if intent == "followup" and state.get("retrieved"):
-        return "generate"       # 직전 턴 검색 근거 재사용 (재검색·임베딩 생략)
-    # followup 인데 기존 근거가 없으면(첫 턴 오분류 등) 일반 legal 경로로
-    return "doc" if state.get("has_document") else "retrieve"
-
-
-def chitchat(state: FactCheckState) -> dict:
-    """검색·법적 고지 없이 짧고 친근하게 응답. 서비스로 자연스럽게 유도."""
-    answer = llm.invoke(
-        "너는 전·월세 세입자를 돕는 친근한 상담봇이다. 아래는 일상 대화다. "
-        "짧고 따뜻하게 한국어로 답하고, 필요하면 '계약 전 위험 진단'이나 '계약 후 분쟁 상담'을 "
-        "도울 수 있다고 자연스럽게 덧붙여라. 법률 조언·근거 인용·법적 고지는 하지 마라.\n\n"
-        f"[최근 대화]\n{_history_text(state)}\n\n사용자: {state.get('question','')}"
-    ).content.strip()
-    return {"answer": answer, "messages": [AIMessage(content=answer)]}
-
-
-# ══════════════════════════════════════════════
-# 서류 분석 경로 (계약 전 · 문서 업로드 시)
-# ══════════════════════════════════════════════
 def ocr_extract(state: FactCheckState) -> dict:
     """업로드된 파일(여러 개 가능)을 각각 OCR해 파일명 라벨과 함께 하나로 합친다."""
     import os as _os
@@ -273,18 +211,23 @@ def analyze_document(state: FactCheckState) -> dict:
     return {"findings": data}
 
 
-def assess_risk(state: FactCheckState) -> dict:
-    """결정론적 계산+판정 노드 (구 calc_jeonse_ratio + assess_risk + build_pre_context 통합).
-    전세가율 = (보증금 + 선순위채권) / 매매시세(유저 입력). 정보 부족 시 'unknown'.
-    위험 사유가 있으면 검색 쿼리·쟁점에 병합."""
-    f = dict(state.get("findings") or {})
+def calc_jeonse_ratio(state: FactCheckState) -> dict:
+    """결정론적 계산: (보증금 + 선순위채권) / 매매시세.  시세는 유저 입력(state['market_price']).
+    시세·보증금이 없으면 전세가율은 None 으로 두고 위험 판정에서 '정보 부족' 처리."""
+    f = state.get("findings") or {}
     deposit = int(f.get("deposit") or 0)
     senior = int(f.get("senior_debt") or 0)
     price = int(state.get("market_price") or 0)     # 유저 입력 시세(원)
+    if price <= 0 or deposit <= 0:
+        return {"findings": {**f, "jeonse_ratio": None, "market_price": price or None}}
+    ratio = round((deposit + senior) / price, 3)
+    return {"findings": {**f, "jeonse_ratio": ratio, "market_price": price}}
 
-    ratio = round((deposit + senior) / price, 3) if price > 0 and deposit > 0 else None
-    f.update(jeonse_ratio=ratio, market_price=price or None)
 
+def assess_risk(state: FactCheckState) -> dict:
+    """결정론적 임계값 판정. 전세가율이 없으면(시세/보증금 미입력) '정보 부족'."""
+    f = state.get("findings") or {}
+    ratio = f.get("jeonse_ratio")
     reasons, level = [], "low"
     if ratio is None:
         level = "unknown"
@@ -297,16 +240,50 @@ def assess_risk(state: FactCheckState) -> dict:
         reasons.append(f"전세가율 {ratio:.0%} (경계 구간)")
     if f.get("senior_debt"):
         reasons.append("선순위 근저당 존재 → 우선변제 순위 확인 필요")
+    return {"risk_result": {"level": level, "ratio": ratio, "reasons": reasons}}
 
-    out = {
-        "findings": f,
-        "risk_result": {"level": level, "ratio": ratio, "reasons": reasons},
-        "stage": "pre",
-    }
-    if reasons:                                     # 위험 사유를 검색 쿼리에 반영
-        out["query"] = (state.get("query", "") + " / " + "; ".join(reasons)).strip(" /")
+
+def analyze_pre_query(state: FactCheckState) -> dict:
+    """대화 맥락을 반영해 마지막 질문을 검색용 '독립형 쿼리'로 변환 + 쟁점 태그 (LLM)."""
+    data = _llm_json(
+        "아래 대화 맥락을 반영해, 사용자의 '마지막 질문'(계약 전)을 그 자체로 검색 가능한 "
+        "독립형 쿼리로 만들어라. 지시대명사(그거·그때·거기 등)는 맥락으로 풀어 완전한 문장으로.\n"
+        'keys: query(자립형 검색 문장), issues(태그 리스트: '
+        'deposit,opposing_power,priority_repayment,fraud,special_terms 중).\n\n'
+        f"[최근 대화]\n{_history_text(state)}\n\n마지막 질문: {state.get('question','')}"
+    )
+    return {"query": data.get("query", state.get("question", "")),
+            "issues": data.get("issues", [])}
+
+
+def build_pre_context(state: FactCheckState) -> dict:
+    """위험 판정 결과가 있으면 검색 쿼리·쟁점에 병합. stage 고정."""
+    out = {"stage": "pre", "retrieval_attempts": 0, "verify_attempts": 0}
+    risk = state.get("risk_result")
+    if risk and risk["reasons"]:
+        out["query"] = state.get("query", "") + " / " + "; ".join(risk["reasons"])
         out["issues"] = list({*state.get("issues", []), "fraud", "priority_repayment"})
     return out
+
+
+def build_pre_graph():
+    g = StateGraph(FactCheckState)
+    g.add_node("ocr_extract", ocr_extract)
+    g.add_node("analyze_document", analyze_document)
+    g.add_node("calc_jeonse_ratio", calc_jeonse_ratio)
+    g.add_node("assess_risk", assess_risk)
+    g.add_node("analyze_pre_query", analyze_pre_query)
+    g.add_node("build_pre_context", build_pre_context)
+
+    g.add_conditional_edges(START, pre_entry_router,
+                            {"doc": "ocr_extract", "question": "analyze_pre_query"})
+    g.add_edge("ocr_extract", "analyze_document")
+    g.add_edge("analyze_document", "calc_jeonse_ratio")
+    g.add_edge("calc_jeonse_ratio", "assess_risk")
+    g.add_edge("assess_risk", "analyze_pre_query")   # 문서 경로도 질의 분석으로 합류
+    g.add_edge("analyze_pre_query", "build_pre_context")
+    g.add_edge("build_pre_context", END)
+    return g.compile()
 
 
 # ══════════════════════════════════════════════
@@ -355,28 +332,34 @@ def retrieve(state: FactCheckState) -> dict:
     return {"retrieved": hits, "_last_query": state["query"]}
 
 
-def _top_score(state: FactCheckState) -> float:
+def grade_documents(state: FactCheckState) -> dict:
+    """관련성 평가 — LLM 없이 검색 유사도 점수로 결정론 판정 (지연·비용 0).
+    top-1 >= GRADE_STRONG 이면 충분, < GRADE_WEAK(또는 결과 없음)이면 부족."""
     hits = state.get("retrieved") or []
-    return hits[0].get("similarity", 0.0) if hits else 0.0
+    top = hits[0]["similarity"] if hits else 0.0
+    if top >= GRADE_STRONG:
+        v = {"sufficient": True}
+    elif top < GRADE_WEAK:
+        v = {"sufficient": False, "gap": f"관련 조항 부족(top score {top:.2f})"}
+    else:                                            # 중간 구간은 있는 근거로 진행
+        v = {"sufficient": True}
+    return {"_grade": v}
 
 
 def grade_router(state: FactCheckState) -> str:
-    """관련성 평가 — 노드가 아니라 retrieve 뒤 조건부 엣지의 순수 라우터.
-    (구 grade_documents 노드 + grade_router 통합: LLM·상태 기록 없이 유사도만으로 판정)
-    top-1 >= GRADE_STRONG 이면 충분, < GRADE_WEAK(또는 결과 없음)이면 부족 → 재작성."""
-    top = _top_score(state)
-    if top >= GRADE_STRONG:
+    v = state.get("_grade", {})
+    if v.get("sufficient"):
         return "generate"
-    if top < GRADE_WEAK and state.get("retrieval_attempts", 0) < MAX_RETRIEVAL_ATTEMPTS:
+    if state.get("retrieval_attempts", 0) < MAX_RETRIEVAL_ATTEMPTS:
         return "rewrite"
-    return "generate"  # 중간 구간 또는 상한 초과 → 있는 근거로 진행(부족 고지)
+    return "generate"  # 상한 초과 → 있는 근거로 진행(부족 고지)
 
 
 def rewrite_query(state: FactCheckState) -> dict:
-    """부족한 부분을 반영해 쿼리 재작성 후 재검색 루프 (최대 1회)."""
+    """부족한 부분을 반영해 쿼리 재작성 후 재검색 루프."""
+    gap = state.get("_grade", {}).get("gap", "")
     new_q = fast_llm.invoke(
-        f"원 질문: {state['query']}\n"
-        f"부족한 점: 관련 조항 부족(top score {_top_score(state):.2f})\n"
+        f"원 질문: {state['query']}\n부족한 점: {gap}\n"
         "임대차 법령 검색에 잘 걸리도록, 원 질문과 다른 표현으로 재작성해라. "
         "관련 법령명(주택임대차보호법 등)과 법률 용어(대항력·우선변제권·수선의무·계약갱신요구권·"
         "임차권등기명령 등) 중 해당하는 것을 포함한 한 문장만 출력."
@@ -385,9 +368,8 @@ def rewrite_query(state: FactCheckState) -> dict:
 
 
 def generate(state: FactCheckState) -> dict:
-    """근거 기반 답변 생성. 결론은 binding, 사례는 persuasive 로 층 분리.
-    verify 노드 제거 → 규칙 2~4 가 grounding 담당. 답변을 messages 에도 적재(멀티턴)."""
-    retrieved = state.get("retrieved") or []
+    """근거 기반 답변 생성. 결론은 binding, 사례는 persuasive 로 층 분리."""
+    retrieved = state["retrieved"]
     binding = [h for h in retrieved if h.get("authority") == "binding"]
     persuasive = [h for h in retrieved if h.get("authority") == "persuasive"]
     ref = [h for h in retrieved if h.get("authority") == "reference"]
@@ -404,84 +386,134 @@ def generate(state: FactCheckState) -> dict:
     dc = _doc_context(state)                       # OCR/서류 분석 결과
     doc_txt = f"[업로드 서류 분석]\n{dc}\n\n" if dc else ""
 
-    if state.get("intent") == "followup":
-        # ── 후속 대화 모드: 재검색 없이 직전 근거 + 대화 맥락으로 짧게 이어서 답변 ──
-        prompt = (
-            "너는 세입자를 돕는 법률 상담봇이다. 아래는 이어지는 상담 대화이고, "
-            "사용자의 마지막 질문은 네가 직전에 한 답변에 대한 확인·부연 질문이다.\n"
-            "규칙:\n"
-            "1) 자연스러운 대화체(정중한 해요체)로 2~4문장 이내로 짧게 답하라. "
-            "직전 답변에서 이미 설명한 내용을 다시 나열하지 마라.\n"
-            "2) 질문에 바로 답하고(예: '네, 연락드리면 돼요'), 사용자가 다음에 할 행동이 있으면 "
-            "한 가지만 구체적으로 덧붙여라(예: 고장 사진·수리 요청 문자로 기록 남기기).\n"
-            "3) 새 법률 판단이 필요하면 [근거] 범위 안에서만 말하고, 근거 밖 사실은 단정하지 마라.\n"
-            "4) 출처 나열·면책 문구·인사말은 넣지 마라.\n\n"
-            f"[대화 맥락]\n{_history_text(state)}\n\n"
-            f"{doc_txt}"
-            f"[근거(직전 검색 결과)]\n{fmt(binding + persuasive + ref)}\n\n"
-            f"사용자: {state.get('question','')}"
-        )
-    else:
-        prompt = (
-            "너는 세입자를 돕는 법률 상담봇이다. 아래 근거만 사용해 답하라.\n"
-            "규칙:\n"
-            "1) 딱딱한 보고서체(~한다/~이다)가 아니라 상담원이 말하듯 정중한 해요체로 답하라.\n"
-            "2) 첫 문장에서 질문에 직접 답하라. 질문의 핵심 용어를 그대로 사용해 결론부터 제시하라.\n"
-            "3) 결론의 법적 근거는 [법령·판례]에서 인용하고 출처(법령명·조항 또는 법원·사건번호)를 "
-            "자연스럽게 문장 안에 녹여라.\n"
-            "4) 근거가 부분적이면 그 범위 안에서 최대한 구체적으로 답하고, 마지막에 한 문장으로 한계를 밝혀라. "
-            "답변 전체를 '알 수 없다'로 끝내지 마라.\n"
-            "5) [사례]는 '이런 경우 이렇게 판단된 적 있다'는 참고로만. 근거에 없는 내용은 절대 단정하지 마라. "
-            "근거 밖 사실을 추가하지 마라.\n"
-            "6) [업로드 서류 분석]이 있으면 그 특약·위험요소를 근거 법령과 연결해 사용자 상황에 맞춰 답하라.\n"
-            "7) 이전 대화가 있으면 이어지는 대화처럼 답하라. 앞에서 이미 설명한 내용은 반복하지 말고 "
-            "새로 묻는 부분에 집중하라. 면책 문구·인사말은 넣지 마라.\n"
-            f"{risk_txt}\n\n"
-            f"[대화 맥락]\n{_history_text(state)}\n\n"
-            f"{doc_txt}"
-            f"[법령·판례]\n{fmt(binding)}\n\n[사례]\n{fmt(persuasive)}\n\n[실무 참고]\n{fmt(ref)}\n\n"
-            f"질문: {state.get('question','')}"
-        )
+    answer = llm.invoke(
+        "너는 세입자를 돕는 법률 정보 도우미다. 아래 근거만 사용해 답하라.\n"
+        "규칙:\n"
+        "1) 첫 문장에서 질문에 직접 답하라. 질문의 핵심 용어를 그대로 사용해 결론부터 제시하라.\n"
+        "2) 결론의 법적 근거는 [법령·판례]에서 인용하고 출처(법령명·조항 또는 법원·사건번호)를 명시하라.\n"
+        "3) 근거가 부분적이면 그 범위 안에서 최대한 구체적으로 답하고, 마지막에 한 문장으로 한계를 밝혀라. "
+        "답변 전체를 '알 수 없다'로 끝내지 마라.\n"
+        "4) [사례]는 '이런 경우 이렇게 판단된 적 있다'는 참고로만. 근거에 없는 내용은 단정하지 마라.\n"
+        "5) [업로드 서류 분석]이 있으면 그 특약·위험요소를 근거 법령과 연결해 사용자 상황에 맞춰 답하라.\n"
+        "6) 이전 대화 맥락을 고려해 자연스럽게 이어서 답하라. 면책 문구·인사말은 넣지 마라.\n"
+        f"{risk_txt}\n\n"
+        f"[대화 맥락]\n{_history_text(state)}\n\n"
+        f"{doc_txt}"
+        f"[법령·판례]\n{fmt(binding)}\n\n[사례]\n{fmt(persuasive)}\n\n[실무 참고]\n{fmt(ref)}\n\n"
+        f"질문: {state.get('question','')}"
+    ).content.strip()
+    return {"answer": answer}
 
-    answer = llm.invoke(prompt).content.strip()
+
+def verify(state: FactCheckState) -> dict:
+    """답변이 검색 근거+업로드 서류에 충실한지(환각 여부) 검증."""
+    ctx = "\n".join(f"- {h.get('content','')[:200]}" for h in state["retrieved"])
+    dc = _doc_context(state)
+    if dc:
+        ctx += "\n[업로드 서류]\n" + dc
+    v = _llm_json(
+        "답변이 아래 근거에 충실한가? 근거(검색 조항 + 업로드 서류)에 없는 사실 단정이 있으면 faithful=false.\n"
+        'keys: faithful(bool), problem(문제 있으면 한 문장).\n\n'
+        f"근거:\n{ctx}\n\n답변:\n{state['answer']}"
+    )
+    return {"_verify": v}
+
+
+def verify_router(state: FactCheckState) -> str:
+    v = state.get("_verify", {})
+    if v.get("faithful"):
+        return "end"
+    if state.get("verify_attempts", 0) < MAX_VERIFY_ATTEMPTS:
+        return "regenerate"
+    return "end"  # 상한 초과 → 고지에 한계 명시
+
+
+def bump_verify(state: FactCheckState) -> dict:
+    return {"verify_attempts": state.get("verify_attempts", 0) + 1}
+
+
+DISCLAIMER = ("\n\n---\n※ 본 답변은 법률 정보 제공이며 변호사의 법률 자문이 아닙니다. "
+              "구체적 사안은 대한법률구조공단(132) 또는 변호사 상담을 권장합니다.")
+
+
+# def legal_notice(state: FactCheckState) -> dict:
+#     """법적 고지 부착 후 최종 답변 확정 + 세션 기록."""
+#     final = state["answer"] + DISCLAIMER
+#     return {"answer": final, "messages": [AIMessage(content=final)]}
+
+
+# ══════════════════════════════════════════════
+# 부모 그래프
+# ══════════════════════════════════════════════
+def classify_intent(state: FactCheckState) -> dict:
+    """법률 질문 vs 일상대화(인사·감사·잡담) 분류. 모호하면 legal(안전)."""
+    v = _llm_json(
+        "사용자 메시지의 의도를 분류하라.\n"
+        "chitchat: 인사·감사·잡담·자기소개·서비스 사용법 등 법률과 무관한 대화.\n"
+        "legal: 전월세 계약·보증금·수리·분쟁·전세사기 등 법률 정보가 필요한 질문.\n"
+        'keys: intent("chitchat"|"legal").\n\n'
+        f"[최근 대화]\n{_history_text(state)}\n\n메시지: {state.get('question','')}"
+    )
+    return {"intent": v.get("intent", "legal")}
+
+
+def intake_router(state: FactCheckState) -> str:
+    if state.get("intent") == "chitchat":
+        return "chitchat"
+    return "pre_contract"
+
+
+def chitchat(state: FactCheckState) -> dict:
+    """검색·법적 고지 없이 짧고 친근하게 응답. 서비스로 자연스럽게 유도."""
+    answer = llm.invoke(
+        "너는 전·월세 세입자를 돕는 친근한 상담봇이다. 아래는 일상 대화다. "
+        "짧고 따뜻하게 한국어로 답하고, 필요하면 '계약 전 위험 진단'이나 '계약 후 분쟁 상담'을 "
+        "도울 수 있다고 자연스럽게 덧붙여라. 법률 조언·근거 인용·법적 고지는 하지 마라.\n\n"
+        f"[최근 대화]\n{_history_text(state)}\n\n사용자: {state.get('question','')}"
+    ).content.strip()
     return {"answer": answer, "messages": [AIMessage(content=answer)]}
 
 
-# ══════════════════════════════════════════════
-# 그래프 조립 (단일 그래프 — pre 서브그래프 평탄화)
-# ══════════════════════════════════════════════
 def build_app():
     g = StateGraph(FactCheckState)
 
-    g.add_node("intake", intake)                # 의도분류 + 쿼리분석 (LLM 1회)
+    # 진입: 의도 분류 → 일상대화 / 법률(계약 전·후)
+    g.add_node("intake", classify_intent)
     g.add_node("chitchat", chitchat)
-    g.add_node("ocr_extract", ocr_extract)      # 문서 경로
-    g.add_node("analyze_document", analyze_document)
-    g.add_node("assess_risk", assess_risk)      # 계산+판정+쿼리병합 (결정론)
+
+    # 서브그래프를 노드로 장착 (State 공유)
+    g.add_node("pre_contract", build_pre_graph())
+
+    # 공통 파이프라인
     g.add_node("retrieve", retrieve)
+    g.add_node("grade", grade_documents)
     g.add_node("rewrite_query", rewrite_query)
     g.add_node("generate", generate)
+    g.add_node("verify", verify)
+    g.add_node("bump_verify", bump_verify)
+    # g.add_node("legal_notice", legal_notice)
 
+    # 진입 라우팅: 잡담이면 chitchat 로 바로 종료, 아니면 stage 별 서브그래프
     g.add_edge(START, "intake")
     g.add_conditional_edges("intake", intake_router, {
         "chitchat": "chitchat",
-        "generate": "generate",     # followup: 직전 근거 재사용, 재검색 생략
-        "doc": "ocr_extract",
-        "retrieve": "retrieve",
+        "pre_contract": "pre_contract"
     })
     g.add_edge("chitchat", END)
+    g.add_edge("pre_contract", "retrieve")
 
-    # 문서 경로: OCR → 추출 → 위험판정(쿼리 병합) → 검색
-    g.add_edge("ocr_extract", "analyze_document")
-    g.add_edge("analyze_document", "assess_risk")
-    g.add_edge("assess_risk", "retrieve")
-
-    # 검색 → 결정론 관련성 라우터 (→ 쿼리 재작성 루프, 최대 1회)
-    g.add_conditional_edges("retrieve", grade_router,
+    # 검색 → 관련성 평가 (→ 쿼리 재작성 루프)
+    g.add_edge("retrieve", "grade")
+    g.add_conditional_edges("grade", grade_router,
                             {"generate": "generate", "rewrite": "rewrite_query"})
     g.add_edge("rewrite_query", "retrieve")
 
-    g.add_edge("generate", END)
+    # 생성 → 충실성 검증 (→ 재생성 루프)
+    g.add_edge("generate", "verify")
+    g.add_conditional_edges("verify", verify_router,
+                            {"end": END, "regenerate": "bump_verify"})
+    g.add_edge("bump_verify", "generate")
+    #g.add_edge("legal_notice", END)
 
     return g.compile(checkpointer=MemorySaver())
 
@@ -508,39 +540,49 @@ def run_turn(thread_id: str, question: str, *, stage: str,
     return out["answer"]
 
 
+
 # ══════════════════════════════════════════════
 # 🛠️ 실시간 터미널 대화용 실행 블록 // Test용
 # ══════════════════════════════════════════════
-# if __name__ == "__main__":
-#     import uuid
-#
-#     thread_id = str(uuid.uuid4())[:8]
-#     print(f"\n==================================================")
-#     print(f"🏠 전·월세 분쟁 팩트체커 실행 (세션 ID: {thread_id})")
-#     print(f"==================================================")
-#     print("※ 종료하려면 '종료' 또는 'exit'를 입력하세요.\n")
-#
-#     while True:
-#         stage_input = input("현재 어떤 단계의 질의인가요?\n(1: 계약 전/안전성 진단, 2: 계약 후/분쟁 발생) ➡️ 번호 입력: ").strip()
-#         if stage_input in ["1", "2"]:
-#             stage = "pre" if stage_input == "1" else "post"
-#             break
-#         print("❌ 잘못된 입력입니다. 1 또는 2를 입력해 주세요.\n")
-#
-#     print(f"\n➡️ [{'계약 전' if stage=='pre' else '계약 후'}] 모드로 실시간 대화를 시작합니다.")
-#
-#     while True:
-#         question = input("\n👤 임차인 질문 입력: ").strip()
-#         if question.lower() in ["종료", "exit", "quit"]:
-#             print("\n👋 팩트체커 프로그램을 종료합니다. 안전한 거래 되세요!")
-#             break
-#         if not question:
-#             print("⚠️ 질문을 입력해 주세요.")
-#             continue
-#         print("\n🔍 관련 법령 및 판례 검색 중... 잠시만 기다려주세요...")
-#         try:
-#             answer = run_turn(thread_id=thread_id, question=question, stage=stage)
-#             print(f"\n🤖 [팩트체커 답변]:\n{answer}")
-#             print(f"\n" + "─"*50)
-#         except Exception as e:
-#             print(f"\n❌ 에러가 발생했습니다: {e}")
+if __name__ == "__main__":
+    import uuid
+
+    # 1. 세션 구분을 위한 고유 thread_id 발급
+    thread_id = str(uuid.uuid4())[:8]
+    print(f"\n==================================================")
+    print(f"🏠 전·월세 분쟁 팩트체커 실행 (세션 ID: {thread_id})")
+    print(f"==================================================")
+    print("※ 종료하려면 '종료' 또는 'exit'를 입력하세요.\n")
+
+    # 2. 계약 단계 최초 1회 선택
+    while True:
+        stage_input = input("현재 어떤 단계의 질의인가요?\n(1: 계약 전/안전성 진단, 2: 계약 후/분쟁 발생) ➡️ 번호 입력: ").strip()
+        if stage_input in ["1", "2"]:
+            stage = "pre" if stage_input == "1" else "post"
+            break
+        print("❌ 잘못된 입력입니다. 1 또는 2를 입력해 주세요.\n")
+
+    print(f"\n➡️ [{'계약 전' if stage=='pre' else '계약 후'}] 모드로 실시간 대화를 시작합니다.")
+
+    # 3. 사용자 입력 대화 루프 시작
+    while True:
+        question = input("\n👤 임차인 질문 입력: ").strip()
+
+        # 종료 조건
+        if question.lower() in ["종료", "exit", "quit"]:
+            print("\n👋 팩트체커 프로그램을 종료합니다. 안전한 거래 되세요!")
+            break
+
+        if not question:
+            print("⚠️ 질문을 입력해 주세요.")
+            continue
+
+        print("\n🔍 관련 법령 및 판례 검색 중... 잠시만 기다려주세요...")
+
+        try:
+            # 상태 그래프 재호출 (동일한 thread_id로 이전 문맥 유지 가능)
+            answer = run_turn(thread_id=thread_id, question=question, stage=stage)
+            print(f"\n🤖 [팩트체커 답변]:\n{answer}")
+            print(f"\n" + "─"*50)
+        except Exception as e:
+            print(f"\n❌ 에러가 발생했습니다: {e}")
