@@ -1,24 +1,37 @@
+---
+description: 현재 브랜치로 develop 대상 PR을 작성하고 GitHub에 게시
+argument-hint: [PR 배경/수정 내역 요약]
+---
+
 # /pr — PR 작성 및 GitHub 게시
 
 PR을 작성하고 GitHub에 게시한다.
 
 인자: $ARGUMENTS
 
+> 아래 모든 git/gh 명령은 **Bash 툴로 실행**한다 (heredoc 등 bash 문법 — PowerShell 사용 금지).
+
 ---
 
 ## 1. 브랜치 상태 확인
 
 ```bash
+git branch --show-current
 git status
 ```
 
-커밋되지 않은 변경사항이 있으면 사용자에게 알리고 멈춘다. (`/commit` 먼저 실행 안내)
+다음 중 하나라도 해당하면 **멈추고 사용자에게 안내**한다:
+
+- 현재 브랜치가 `main` 또는 `develop` → 기능 브랜치가 아니므로 PR 불가 (`/start`로 브랜치 생성 안내)
+- 커밋되지 않은 변경사항 존재 → `/commit` 먼저 실행 안내
 
 ```bash
 git fetch origin develop                 # 기준 브랜치 최신화
 git log origin/develop..HEAD --oneline   # 포함될 커밋 목록
 git diff origin/develop...HEAD           # 전체 변경 내용
 ```
+
+- 포함될 커밋이 **0개**면 멈춘다 — develop과 차이가 없어 PR을 만들 수 없음
 
 ---
 

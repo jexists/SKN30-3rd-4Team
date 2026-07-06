@@ -1,6 +1,12 @@
+---
+description: 변경사항을 논리 단위로 커밋하고 push까지 수행
+---
+
 # /commit — 커밋 워크플로우
 
 변경된 파일을 분석하고 작업 단위로 논리적으로 분리하여 커밋 → rebase → push까지 수행한다.
+
+> 아래 모든 git 명령은 **Bash 툴로 실행**한다 (heredoc·리다이렉션 등 bash 문법 — PowerShell 사용 금지).
 
 ---
 
@@ -96,8 +102,9 @@ EOF
 git fetch origin
 
 # 원격에 같은 브랜치가 있을 때만 동기화 (없으면 첫 푸시이므로 건너뜀)
+# 주의: upstream 미설정 상태에서도 동작하도록 remote/브랜치를 명시한다
 if git ls-remote --exit-code --heads origin <현재 브랜치> >/dev/null 2>&1; then
-  git pull --rebase
+  git pull --rebase origin <현재 브랜치>
 fi
 ```
 

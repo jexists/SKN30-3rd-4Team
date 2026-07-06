@@ -1,6 +1,12 @@
+---
+description: origin/develop을 SKN org 저장소 main으로 push
+---
+
 # /skn-remote — SKN org 저장소 동기화
 
 현재 `develop`을 `SKNETWORKS-FAMILY-AICAMP/SKN30-3rd-4Team` main 브랜치에 push한다.
+
+> 아래 모든 git 명령은 **Bash 툴로 실행**한다 (`[ ... ]` 테스트 등 bash 문법 — PowerShell 사용 금지).
 
 ---
 

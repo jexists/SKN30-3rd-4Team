@@ -8,6 +8,8 @@ description: Use when syncing origin/develop to SKNETWORKS-FAMILY-AICAMP org rep
 ## Overview
 현재 `origin/develop`을 `SKNETWORKS-FAMILY-AICAMP/SKN30-3rd-4Team` main 브랜치에 push한다.
 
+모든 git 명령은 **Bash 툴로 실행**한다 (`[ ... ]` 테스트 등 bash 문법 — PowerShell 사용 금지).
+
 ## When to Use
 - develop 변경사항을 SKN org 저장소 main에 반영할 때
 - NOT: force push가 필요한 상황 (절대 금지)

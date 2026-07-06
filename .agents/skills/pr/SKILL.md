@@ -8,6 +8,8 @@ description: Use when creating a pull request to the develop branch on GitHub af
 ## Overview
 커밋이 push된 기능 브랜치에서 develop 대상 PR을 작성하고 GitHub에 게시한다.
 
+모든 git/gh 명령은 **Bash 툴로 실행**한다 (heredoc 등 bash 문법 — PowerShell 사용 금지).
+
 ## When to Use
 - 기능 브랜치 작업 완료 후 develop으로 PR을 올릴 때
 - NOT: 커밋되지 않은 변경사항이 남아있을 때 (`/commit` 먼저)
@@ -22,12 +24,16 @@ description: Use when creating a pull request to the develop branch on GitHub af
 
 ### 1. 브랜치 상태 확인
 ```bash
+git branch --show-current
 git fetch origin develop   # 기준 브랜치 최신화
 git status
 git log origin/develop..HEAD --oneline
 git diff origin/develop...HEAD
 ```
-커밋되지 않은 변경사항 있으면 멈추고 `/commit` 먼저 안내.
+다음 중 하나라도 해당하면 멈추고 사용자에게 안내:
+- 현재 브랜치가 `main`/`develop` → 기능 브랜치가 아니므로 PR 불가 (`/start`로 브랜치 생성 안내)
+- 커밋되지 않은 변경사항 존재 → `/commit` 먼저 안내
+- develop 대비 포함될 커밋이 0개 → 차이가 없어 PR 생성 불가
 
 ### 2. PR 본문 작성
 ```
