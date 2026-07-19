@@ -1,0 +1,48 @@
+{
+  "run_id": "full_20260719_163719",
+  "passed": true,
+  "checks": {
+    "input_inventory_schema": true,
+    "heading_preservation": true,
+    "structure_path_consistency": true,
+    "article_unit_order_preservation": true,
+    "deleted_article_preservation": true,
+    "revision_information_preservation": true,
+    "low_relevance_precedent_preservation": true,
+    "relevance_metadata_complete": true,
+    "legal_angle_text_preservation": true,
+    "html_allowlist_handled": true,
+    "no_automatic_dedup": true,
+    "metadata_and_record_id_integrity": true,
+    "text_image_parent_integrity": true,
+    "image_count_integrity": true,
+    "empty_content_policy": true,
+    "forbidden_chunk_metadata_absent": true,
+    "oc_query_assignment_absent": true,
+    "record_count_conservation": true
+  },
+  "record_counts": {
+    "input": {
+      "statute": 3146,
+      "interpretation": 962,
+      "precedent": 4311
+    },
+    "output_text": {
+      "statute": 3146,
+      "interpretation": 962,
+      "precedent": 4311
+    },
+    "output_image": {
+      "statute": 89,
+      "precedent": 30
+    },
+    "input_total": 8419,
+    "output_text_total": 8419,
+    "output_image_total": 119
+  },
+  "precedent_relevance_distribution": {
+    "relevant": 653,
+    "candidate": 1170,
+    "excluded": 304
+  }
+}
