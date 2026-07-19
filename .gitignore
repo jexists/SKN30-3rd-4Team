@@ -30,6 +30,9 @@ desktop.ini
 # 대용량 체크포인트 (resume용, 커밋 불필요)
 data/01_raw/*_checkpoint.jsonl
 
+# 법령 API v2 샘플 run (검수용 임시 산출물, 커밋 제외)
+data/legal_api_v2/**/sample_*/
+
 # 100MB 초과로 GitHub push가 막히는 미분할 원본 (분할본 kb_chunks_prec.part*.jsonl만 커밋)
 data/04_chunks/kb_chunks_prec.jsonl
 
