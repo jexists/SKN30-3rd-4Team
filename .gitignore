@@ -33,6 +33,16 @@ data/01_raw/*_checkpoint.jsonl
 # 법령 API v2 샘플 run (검수용 임시 산출물, 커밋 제외)
 data/legal_api_v2/**/sample_*/
 
+# 법률 RAG v2 재생성 가능 산출물 (원본 05_processed_*와 reports는 유지)
+data/legal_api_v2/05_ocr_source/
+data/legal_api_v2/05_ocr_json/
+data/legal_api_v2/06_final/
+data/legal_api_v2/07_chunking_*/
+data/legal_api_v2/08_embedding_*/
+pipeline/logs/
+reports/legal_api_v2/status/
+reports/legal_api_v2/manifest_audit/validation.json
+
 # 100MB 초과로 GitHub push가 막히는 미분할 원본 (분할본 kb_chunks_prec.part*.jsonl만 커밋)
 data/04_chunks/kb_chunks_prec.jsonl
 

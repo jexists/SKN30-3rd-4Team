@@ -1,0 +1,12 @@
+# v2 파이프라인 전용. 기존 root pyproject.toml은 수정하지 않는다.
+numpy>=2.2
+pandas>=2.2,<3
+matplotlib>=3.11
+pyyaml>=6.0
+sentence-transformers>=5.0
+torch>=2.7
+tqdm>=4.67
+pyarrow>=19
+psycopg[binary]>=3.3.4
+python-dotenv>=1.1
+ipykernel>=7.0

@@ -1,0 +1,11 @@
+{
+  "name": "legal-rag-v2-ocr",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sample": "node run_sample_ocr.mjs"
+  },
+  "dependencies": {
+    "tesseract.js": "7.0.0"
+  }
+}
