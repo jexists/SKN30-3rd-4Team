@@ -1,0 +1,32 @@
+{
+  "checked_at": "2026-07-20T01:45:20+00:00",
+  "questions": 20,
+  "gold_references": 26,
+  "distinct_gold_record_ids": 25,
+  "valid_gold_references": 26,
+  "missing_or_duplicate": [],
+  "definition_errors": [],
+  "issue_counts": {
+    "경매배당": 1,
+    "계약갱신": 4,
+    "계약기간": 1,
+    "계약해지": 2,
+    "보증금권리": 4,
+    "보증금반환": 2,
+    "분쟁조정": 1,
+    "임대료": 2,
+    "중개": 2,
+    "중개보수": 1
+  },
+  "declared_source_type_counts": {
+    "interpretation": 3,
+    "precedent": 6,
+    "standard_contract": 2,
+    "statute": 11
+  },
+  "review_statuses": [
+    "pending_team_review"
+  ],
+  "report": "reports/legal_api_v2/eval/question_audit/gold_record_review.csv",
+  "review_markdown": "reports/legal_api_v2/eval/question_audit/gold_record_review.md"
+}

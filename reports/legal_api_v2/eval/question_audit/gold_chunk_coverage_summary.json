@@ -1,0 +1,50 @@
+{
+  "checked_at": "2026-07-20T00:57:20+00:00",
+  "questions": 20,
+  "distinct_gold_record_ids": 25,
+  "candidate_summaries": [
+    {
+      "chunk_size": 300,
+      "overlap": 30,
+      "directory": "data/legal_api_v2/07_chunking_300_ov30",
+      "total_chunks": 95350,
+      "unique_chunk_ids": 95350,
+      "gold_records": 25,
+      "gold_records_present": 25,
+      "missing_gold_records": []
+    },
+    {
+      "chunk_size": 500,
+      "overlap": 50,
+      "directory": "data/legal_api_v2/07_chunking_500_ov50",
+      "total_chunks": 59987,
+      "unique_chunk_ids": 59987,
+      "gold_records": 25,
+      "gold_records_present": 25,
+      "missing_gold_records": []
+    },
+    {
+      "chunk_size": 800,
+      "overlap": 80,
+      "directory": "data/legal_api_v2/07_chunking_800_ov80",
+      "total_chunks": 39226,
+      "unique_chunk_ids": 39226,
+      "gold_records": 25,
+      "gold_records_present": 25,
+      "missing_gold_records": []
+    },
+    {
+      "chunk_size": 1000,
+      "overlap": 100,
+      "directory": "data/legal_api_v2/07_chunking_1000_ov100",
+      "total_chunks": 32215,
+      "unique_chunk_ids": 32215,
+      "gold_records": 25,
+      "gold_records_present": 25,
+      "missing_gold_records": []
+    }
+  ],
+  "missing": [],
+  "report": "reports/legal_api_v2/eval/question_audit/gold_chunk_coverage.csv",
+  "passed": true
+}

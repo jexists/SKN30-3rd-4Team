@@ -1,0 +1,12 @@
+{
+  "applied_at": "2026-07-20T00:59:53+00:00",
+  "schema": "pipeline/supabase/schema.sql",
+  "legacy_kb_chunks_existed_before": false,
+  "legacy_kb_chunks_unchanged": true,
+  "legacy_kb_chunks_exists_after": false,
+  "kb_chunks_v2_existed_before": true,
+  "kb_experiments_v2_existed_before": true,
+  "kb_chunks_v2_ready": true,
+  "kb_experiments_v2_ready": true,
+  "match_kb_chunks_v2_ready": true
+}

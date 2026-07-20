@@ -1,0 +1,12 @@
+{
+  "mode": "local_only",
+  "decided_at": "2026-07-20",
+  "decision": "사용자 요청에 따라 이번 실행에서 Supabase 적재와 이에 의존하는 DB 검색·앱 전환을 제외한다.",
+  "excluded_stages": [
+    "supabase_capacity_probe_5000",
+    "supabase_full_ingest",
+    "supabase_reconciliation",
+    "supabase_search_smoke",
+    "db_backed_app_env_and_cutover"
+  ]
+}

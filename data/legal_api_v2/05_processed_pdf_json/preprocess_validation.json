@@ -1,0 +1,734 @@
+{
+  "passed": true,
+  "checks": {
+    "record_id_global_unique": true,
+    "nonempty_page_content": true,
+    "html_comments_and_forbidden_tags_absent": true,
+    "pdf_page_relation_and_monotonic_page_index": true,
+    "book_page_offset_consistency": true,
+    "page_record_conservation_by_drop_reason": true,
+    "header_removal_no_70pct_loss": true,
+    "guide_running_header_prefix_absent": true,
+    "overlapped_character_runs_absent": true,
+    "runaway_repetition_absent": true,
+    "runaway_repetition_only_expected_record": true,
+    "standard_contract_printed_footer_absent": true,
+    "guide_page_74_restored": true,
+    "guide_scrambled_policy_exact": true,
+    "toc_drop_only_expected_page": true,
+    "no_trailing_printed_page_number_2024": true,
+    "all_table_separator_lines_compact": true,
+    "table_count_404_and_column_signatures_preserved": true,
+    "registry_has_all_unique_documents": true,
+    "metadata_schema_exact": true,
+    "metadata_constants_and_md5_match": true,
+    "new_format_md5_matches_raw_pdf": true,
+    "ten_jsonl_files_only": true,
+    "compact_utf8_jsonl": true,
+    "excluded_duplicate_inventory_exact": true
+  },
+  "documents": {
+    "mediation_casebook_2021": {
+      "input_records": 195,
+      "records": 172,
+      "dropped": {
+        "empty_cover": {
+          "count": 23,
+          "page_index": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            8,
+            9,
+            10,
+            13,
+            14,
+            20,
+            21,
+            22,
+            42,
+            117,
+            118,
+            130,
+            153,
+            154,
+            157,
+            174,
+            175,
+            194
+          ]
+        },
+        "scrambled": {
+          "count": 0,
+          "page_index": []
+        },
+        "divider": {
+          "count": 0,
+          "page_index": []
+        },
+        "toc": {
+          "count": 0,
+          "page_index": []
+        }
+      },
+      "book_page_offset": 4,
+      "book_page_method": "measured_constant_scan",
+      "book_page_candidate_pages": null,
+      "book_page_matched_pages": null,
+      "book_page_agreement": 1.0,
+      "book_page_reason": "",
+      "removed_header_patterns": [],
+      "removed_header_pattern_hits": {},
+      "document_cleanup_pattern_hits": {},
+      "runaway_repetition_collapses": [],
+      "toc_detected_page_index": [],
+      "trailing_printed_page_number_removed": {
+        "count": 0,
+        "page_index": []
+      },
+      "trailing_printed_page_number_mismatches": [],
+      "markdown_table_separator_count": 65,
+      "scrambled_policy": {},
+      "pdf_md5": "5d8000aeea6a349ac022d04601a1ac51"
+    },
+    "mediation_casebook_2022": {
+      "input_records": 152,
+      "records": 137,
+      "dropped": {
+        "empty_cover": {
+          "count": 15,
+          "page_index": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            11,
+            12,
+            18,
+            36,
+            91,
+            92,
+            115,
+            149,
+            150,
+            151
+          ]
+        },
+        "scrambled": {
+          "count": 0,
+          "page_index": []
+        },
+        "divider": {
+          "count": 0,
+          "page_index": []
+        },
+        "toc": {
+          "count": 0,
+          "page_index": []
+        }
+      },
+      "book_page_offset": 3,
+      "book_page_method": "measured_constant_scan",
+      "book_page_candidate_pages": null,
+      "book_page_matched_pages": null,
+      "book_page_agreement": 1.0,
+      "book_page_reason": "",
+      "removed_header_patterns": [],
+      "removed_header_pattern_hits": {},
+      "document_cleanup_pattern_hits": {},
+      "runaway_repetition_collapses": [],
+      "toc_detected_page_index": [],
+      "trailing_printed_page_number_removed": {
+        "count": 0,
+        "page_index": []
+      },
+      "trailing_printed_page_number_mismatches": [],
+      "markdown_table_separator_count": 205,
+      "scrambled_policy": {},
+      "pdf_md5": "eb0834b6254fdece2373ffb8e2e207aa"
+    },
+    "mediation_casebook_2023": {
+      "input_records": 96,
+      "records": 75,
+      "dropped": {
+        "empty_cover": {
+          "count": 21,
+          "page_index": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            11,
+            12,
+            15,
+            16,
+            22,
+            23,
+            24,
+            61,
+            62,
+            89,
+            92,
+            93,
+            94,
+            95
+          ]
+        },
+        "scrambled": {
+          "count": 0,
+          "page_index": []
+        },
+        "divider": {
+          "count": 0,
+          "page_index": []
+        },
+        "toc": {
+          "count": 0,
+          "page_index": []
+        }
+      },
+      "book_page_offset": 1,
+      "book_page_method": "measured_constant_scan",
+      "book_page_candidate_pages": null,
+      "book_page_matched_pages": null,
+      "book_page_agreement": 1.0,
+      "book_page_reason": "",
+      "removed_header_patterns": [],
+      "removed_header_pattern_hits": {},
+      "document_cleanup_pattern_hits": {
+        "반복 폭주 런": 1
+      },
+      "runaway_repetition_collapses": [
+        {
+          "slug": "mediation_casebook_2023",
+          "page_index": 91,
+          "run_count": 1,
+          "before_length": 24646,
+          "after_length": 172
+        }
+      ],
+      "toc_detected_page_index": [],
+      "trailing_printed_page_number_removed": {
+        "count": 0,
+        "page_index": []
+      },
+      "trailing_printed_page_number_mismatches": [],
+      "markdown_table_separator_count": 122,
+      "scrambled_policy": {},
+      "pdf_md5": "53583fbce752c57fdbcf0350b848b2eb"
+    },
+    "counsel_casebook_2024": {
+      "input_records": 113,
+      "records": 92,
+      "dropped": {
+        "empty_cover": {
+          "count": 20,
+          "page_index": [
+            0,
+            2,
+            4,
+            8,
+            9,
+            16,
+            28,
+            38,
+            50,
+            60,
+            68,
+            82,
+            90,
+            94,
+            101,
+            102,
+            103,
+            109,
+            111,
+            112
+          ]
+        },
+        "scrambled": {
+          "count": 0,
+          "page_index": []
+        },
+        "divider": {
+          "count": 0,
+          "page_index": []
+        },
+        "toc": {
+          "count": 1,
+          "page_index": [
+            3
+          ]
+        }
+      },
+      "book_page_offset": 0,
+      "book_page_method": "pypdf_boundary_regex_80pct",
+      "book_page_candidate_pages": 82,
+      "book_page_matched_pages": 79,
+      "book_page_agreement": 0.963415,
+      "book_page_reason": "",
+      "removed_header_patterns": [],
+      "removed_header_pattern_hits": {},
+      "document_cleanup_pattern_hits": {},
+      "runaway_repetition_collapses": [],
+      "toc_detected_page_index": [
+        3
+      ],
+      "trailing_printed_page_number_removed": {
+        "count": 78,
+        "page_index": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          92,
+          93,
+          96,
+          97,
+          98,
+          99,
+          100,
+          104,
+          105,
+          106,
+          107,
+          108
+        ]
+      },
+      "trailing_printed_page_number_mismatches": [],
+      "markdown_table_separator_count": 7,
+      "scrambled_policy": {},
+      "pdf_md5": "8d169866cd6b2b7ab8945a067e001941"
+    },
+    "counsel_casebook_2025": {
+      "input_records": 121,
+      "records": 103,
+      "dropped": {
+        "empty_cover": {
+          "count": 0,
+          "page_index": []
+        },
+        "scrambled": {
+          "count": 0,
+          "page_index": []
+        },
+        "divider": {
+          "count": 18,
+          "page_index": [
+            3,
+            11,
+            19,
+            46,
+            64,
+            75,
+            88,
+            90,
+            96,
+            108,
+            110,
+            111,
+            113,
+            114,
+            115,
+            116,
+            117,
+            122
+          ]
+        },
+        "toc": {
+          "count": 0,
+          "page_index": []
+        }
+      },
+      "book_page_offset": 1,
+      "book_page_method": "pypdf_boundary_regex_80pct",
+      "book_page_candidate_pages": 108,
+      "book_page_matched_pages": 105,
+      "book_page_agreement": 0.972222,
+      "book_page_reason": "",
+      "removed_header_patterns": [
+        "상담사례집 시작 러닝타이틀 (숫자 마스킹: ^주택 및 상가건물 임대차 상담사례집\\s+, 54페이지)",
+        "상담사례집 끝 인쇄번호·러닝타이틀 (숫자 마스킹: \\s+#\\s+주택 및 상가건물 임대차 상담사례집$, 46페이지)",
+        "상담사례집 탭 내비게이션 (숫자 마스킹: 제1장 제도소개 제2장 주택임대차 상담사례(?:\\[[^\\]]+\\])? 제3장 상가(?:건물)?임대차 상담사례 부록\\s*, 34페이지)"
+      ],
+      "removed_header_pattern_hits": {
+        "상담사례집 시작 러닝타이틀": 51,
+        "상담사례집 탭 내비게이션": 33,
+        "상담사례집 끝 인쇄번호·러닝타이틀": 43
+      },
+      "document_cleanup_pattern_hits": {
+        "3쌍 이상 겹자 런": 56
+      },
+      "runaway_repetition_collapses": [],
+      "toc_detected_page_index": [],
+      "trailing_printed_page_number_removed": {
+        "count": 0,
+        "page_index": []
+      },
+      "trailing_printed_page_number_mismatches": [],
+      "markdown_table_separator_count": 0,
+      "scrambled_policy": {},
+      "pdf_md5": "8c1e31d0082b385a03a3d67b06c7310f"
+    },
+    "standard_contract_202310": {
+      "input_records": 5,
+      "records": 5,
+      "dropped": {
+        "empty_cover": {
+          "count": 0,
+          "page_index": []
+        },
+        "scrambled": {
+          "count": 0,
+          "page_index": []
+        },
+        "divider": {
+          "count": 0,
+          "page_index": []
+        },
+        "toc": {
+          "count": 0,
+          "page_index": []
+        }
+      },
+      "book_page_offset": -1,
+      "book_page_method": "pypdf_boundary_regex_80pct",
+      "book_page_candidate_pages": 5,
+      "book_page_matched_pages": 5,
+      "book_page_agreement": 1.0,
+      "book_page_reason": "",
+      "removed_header_patterns": [],
+      "removed_header_pattern_hits": {},
+      "document_cleanup_pattern_hits": {
+        "표준계약서 인쇄 푸터": 5
+      },
+      "runaway_repetition_collapses": [],
+      "toc_detected_page_index": [],
+      "trailing_printed_page_number_removed": {
+        "count": 0,
+        "page_index": []
+      },
+      "trailing_printed_page_number_mismatches": [],
+      "markdown_table_separator_count": 5,
+      "scrambled_policy": {},
+      "pdf_md5": "fadb1d03b9b728b3bdb81a07d6729ef5"
+    },
+    "guide_hlpa_guidebook_2020": {
+      "input_records": 131,
+      "records": 111,
+      "dropped": {
+        "empty_cover": {
+          "count": 0,
+          "page_index": []
+        },
+        "scrambled": {
+          "count": 18,
+          "page_index": [
+            6,
+            7,
+            38,
+            40,
+            41,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112
+          ]
+        },
+        "divider": {
+          "count": 2,
+          "page_index": [
+            0,
+            1
+          ]
+        },
+        "toc": {
+          "count": 0,
+          "page_index": []
+        }
+      },
+      "book_page_offset": 0,
+      "book_page_method": "pypdf_boundary_regex_80pct",
+      "book_page_candidate_pages": 122,
+      "book_page_matched_pages": 119,
+      "book_page_agreement": 0.97541,
+      "book_page_reason": "",
+      "removed_header_patterns": [
+        "가이드북 시작 러닝헤더 변형 (숫자 마스킹: ^(?:#\\s+)?2020\\. 7\\. 31\\. 개정 주택임대차보호법 가이드북\\s+#(?:\\s+국토교통부-법무부 발간 주택임대차보호법 해설집)?\\s*, 56페이지)",
+        "만화 시작 인쇄번호·러닝헤더 (숫자 마스킹: ^#\\s+만화로 보는 주택임(?:대차|차)보호법\\s+[‘\\x22\\x27](?:세입자|집주인)편[’\\x22\\x27]\\s*, 31페이지)",
+        "서울시 상담 시작 러닝헤더 (숫자 마스킹: ^#\\s+서울시 주요상담 사례\\s+#\\s+, 5페이지)",
+        "부록 시작 인쇄번호·러닝헤더 (숫자 마스킹: ^#\\s+부록\\s+, 10페이지)",
+        "뒤섞임·겹자 러닝헤더 (숫자 마스킹: ^\\d{4}\\s+(?:만서화울로시 보주는요 상주담택 임사대례차보호법|만주화택로임 대보차는분 주쟁택조임정대 사차례보호법)\\s+[‘\\x22\\x27]세입자편[’\\x22\\x27](?:\\s+#)?\\s*, 7페이지)"
+      ],
+      "removed_header_pattern_hits": {
+        "만화 시작 인쇄번호·러닝헤더": 31,
+        "가이드북 시작 러닝헤더 변형": 55,
+        "뒤섞임·겹자 러닝헤더": 7,
+        "서울시 상담 시작 러닝헤더": 5,
+        "부록 시작 인쇄번호·러닝헤더": 10
+      },
+      "document_cleanup_pattern_hits": {},
+      "runaway_repetition_collapses": [],
+      "toc_detected_page_index": [],
+      "trailing_printed_page_number_removed": {
+        "count": 0,
+        "page_index": []
+      },
+      "trailing_printed_page_number_mismatches": [],
+      "markdown_table_separator_count": 0,
+      "scrambled_policy": {
+        "comic_pages": [
+          6,
+          7,
+          38,
+          40,
+          41
+        ],
+        "legal_text_interleaved_range": {
+          "start_page_index": 100,
+          "end_page_index": 112,
+          "basis": "original_pdf_visual_review"
+        }
+      },
+      "pdf_md5": "3f7e0299fe1aa5d683541205b1cdfee0"
+    },
+    "guide_legal_procedure_seoul": {
+      "input_records": 9,
+      "records": 9,
+      "dropped": {
+        "empty_cover": {
+          "count": 0,
+          "page_index": []
+        },
+        "scrambled": {
+          "count": 0,
+          "page_index": []
+        },
+        "divider": {
+          "count": 0,
+          "page_index": []
+        },
+        "toc": {
+          "count": 0,
+          "page_index": []
+        }
+      },
+      "book_page_offset": null,
+      "book_page_method": "pypdf_boundary_regex",
+      "book_page_candidate_pages": 0,
+      "book_page_matched_pages": 0,
+      "book_page_agreement": 0.0,
+      "book_page_reason": "경계부에서 인쇄 페이지 번호 후보를 찾지 못함",
+      "removed_header_patterns": [
+        "서울시 견본서식 끝 안내문 (숫자 마스킹: \\s*본 서식은 서울시 주택정책과에서 작성한 견본 문서이므로, 신청인의 구체적인 신청 사유에 맞게 수정하여 사용하시기 바랍니다\\(문의사항: 02-2133-1200~1208\\(3\\)\\)\\.$, 5페이지)"
+      ],
+      "removed_header_pattern_hits": {
+        "서울시 견본서식 끝 안내문": 5
+      },
+      "document_cleanup_pattern_hits": {},
+      "runaway_repetition_collapses": [],
+      "toc_detected_page_index": [],
+      "trailing_printed_page_number_removed": {
+        "count": 0,
+        "page_index": []
+      },
+      "trailing_printed_page_number_mismatches": [],
+      "markdown_table_separator_count": 0,
+      "scrambled_policy": {},
+      "pdf_md5": "3a81a3a49ecf3472239783d8b53aa21c"
+    },
+    "guide_jeonse_fraud_seoul": {
+      "input_records": 7,
+      "records": 7,
+      "dropped": {
+        "empty_cover": {
+          "count": 0,
+          "page_index": []
+        },
+        "scrambled": {
+          "count": 0,
+          "page_index": []
+        },
+        "divider": {
+          "count": 0,
+          "page_index": []
+        },
+        "toc": {
+          "count": 0,
+          "page_index": []
+        }
+      },
+      "book_page_offset": -1,
+      "book_page_method": "pypdf_boundary_regex_80pct",
+      "book_page_candidate_pages": 7,
+      "book_page_matched_pages": 7,
+      "book_page_agreement": 1.0,
+      "book_page_reason": "",
+      "removed_header_patterns": [
+        "보도자료 인쇄 페이지 번호 (숫자 마스킹: (?:^|\\s+)-\\s*#\\s*-(?=\\s+|$), 7페이지)"
+      ],
+      "removed_header_pattern_hits": {
+        "보도자료 인쇄 페이지 번호": 7
+      },
+      "document_cleanup_pattern_hits": {},
+      "runaway_repetition_collapses": [],
+      "toc_detected_page_index": [],
+      "trailing_printed_page_number_removed": {
+        "count": 0,
+        "page_index": []
+      },
+      "trailing_printed_page_number_mismatches": [],
+      "markdown_table_separator_count": 0,
+      "scrambled_policy": {},
+      "pdf_md5": "8afe3c2817c347412cfdbe032353ac93"
+    },
+    "guide_contract_checklist_2026": {
+      "input_records": 5,
+      "records": 5,
+      "dropped": {
+        "empty_cover": {
+          "count": 0,
+          "page_index": []
+        },
+        "scrambled": {
+          "count": 0,
+          "page_index": []
+        },
+        "divider": {
+          "count": 0,
+          "page_index": []
+        },
+        "toc": {
+          "count": 0,
+          "page_index": []
+        }
+      },
+      "book_page_offset": -1,
+      "book_page_method": "pypdf_boundary_regex_80pct",
+      "book_page_candidate_pages": 5,
+      "book_page_matched_pages": 5,
+      "book_page_agreement": 1.0,
+      "book_page_reason": "",
+      "removed_header_patterns": [
+        "주요 확인사항 끝 문의·인쇄번호 (숫자 마스킹: \\s*궁금한 사항은 서울시 전․월세 종합지원센터\\(02-2133-1200\\)로 문의해 주십시오\\.\\s*#(?=\\s|$), 5페이지)"
+      ],
+      "removed_header_pattern_hits": {
+        "주요 확인사항 끝 문의·인쇄번호": 5
+      },
+      "document_cleanup_pattern_hits": {},
+      "runaway_repetition_collapses": [],
+      "toc_detected_page_index": [],
+      "trailing_printed_page_number_removed": {
+        "count": 0,
+        "page_index": []
+      },
+      "trailing_printed_page_number_mismatches": [],
+      "markdown_table_separator_count": 0,
+      "scrambled_policy": {},
+      "pdf_md5": "7e3d6f09dafb2da26e95ca60a1abfbc8"
+    }
+  },
+  "runaway_repetition_normalization": {
+    "collapsed_run_count": 1,
+    "affected_records": [
+      {
+        "slug": "mediation_casebook_2023",
+        "page_index": 91,
+        "run_count": 1,
+        "before_length": 24646,
+        "after_length": 172
+      }
+    ],
+    "residual_record_ids": []
+  },
+  "markdown_table_normalization": {
+    "separator_count": 404,
+    "expected_count": 404,
+    "noncompact_residual": []
+  },
+  "excluded_duplicates": [
+    "2022_주택·상가건물_임대차분쟁조정_사례집_processed.json",
+    "2023_주택·상가건물_임대차분쟁조정_사례집_processed.json",
+    "20231006_개정_주택임대차 표준계약서_특약사항 포함(개정후)_processed.json",
+    "2024_주택·상가건물 임대차분쟁조정 사례집_processed.json",
+    "2024_주택임대차 상담사례집(최종_배포)_processed.json",
+    "2025_주택·상가건물 임대차분쟁조정 사례집_processed.json"
+  ]
+}

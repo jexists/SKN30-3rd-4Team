@@ -1,0 +1,55 @@
+dataset_version: legalv2_20260720
+
+paths:
+  api_text_dir: data/legal_api_v2/05_processed_document_json/full_20260719_163719/text
+  api_image_jsonl: data/legal_api_v2/05_processed_document_json/full_20260719_163719/image/images.jsonl
+  pdf_text_dir: data/legal_api_v2/05_processed_pdf_json/text
+  final_dir: data/legal_api_v2/06_final
+  reports_dir: reports/legal_api_v2
+
+filters:
+  exclude_relevance_levels:
+    - excluded
+  exclude_deleted: true
+  exclude_sections:
+    - heading
+  short_record_review_chars: 20
+
+chunking:
+  unit: char
+  candidates:
+    - 300
+    - 500
+    - 800
+    - 1000
+  default_size: 500
+  overlap_ratio: 0.10
+
+embedding:
+  default_model: kakao1513/KURE-legal-ft-v1
+  batch_size: 8
+  part_size: 512
+  normalize: true
+  models:
+    kure-legal-ft-v1:
+      id: kakao1513/KURE-legal-ft-v1
+      revision: 82e71693515159e69afe0186eb601a194cbc9cf8
+      dimension: 1024
+      max_tokens: 8192
+    kure-v1:
+      id: nlpai-lab/KURE-v1
+      revision: d14c8a9423946e268a0c9952fecf3a7aabd73bd9
+      dimension: 1024
+      max_tokens: 8192
+    bge-m3:
+      id: BAAI/bge-m3
+      revision: 5617a9f61b028005a4858fdac845db406aefb181
+      dimension: 1024
+      max_tokens: 8192
+
+supabase:
+  table: kb_chunks_v2
+  vector_dimension: 1024
+  insert_batch_size: 500
+  capacity_probe_rows: 5000
+  capacity_safety_factor: 1.25

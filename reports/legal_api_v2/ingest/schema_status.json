@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-07-20T00:59:54+00:00",
+  "pgvector_version": "0.8.0",
+  "chunk_rows": 0,
+  "experiment_rows": 0,
+  "hnsw_index_ready": true,
+  "hnsw_index_definition": "CREATE INDEX kb_chunks_v2_embedding_hnsw_idx ON public.kb_chunks_v2 USING hnsw (embedding vector_cosine_ops)",
+  "match_function_ready": true,
+  "legacy_kb_chunks_exists": false,
+  "legacy_kb_chunks": null,
+  "sizes_bytes": {
+    "total": 32768,
+    "heap": 0,
+    "toast": 8192,
+    "indexes": 24576,
+    "database": 1635486867
+  },
+  "passed": true
+}

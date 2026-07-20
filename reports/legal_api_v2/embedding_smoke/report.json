@@ -1,0 +1,55 @@
+{
+  "generated_at": "2026-07-19T19:25:28+00:00",
+  "input_root": "data/legal_api_v2",
+  "all_passed": true,
+  "models": [
+    {
+      "model_id": "BAAI/bge-m3",
+      "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "rows": 100,
+      "dimension": 1024,
+      "nan_values": 0,
+      "norm_min": 0.9999999403953552,
+      "norm_mean": 1.0,
+      "norm_max": 1.0000001192092896,
+      "same_chunk_ids": true,
+      "parquet_bytes": 634567,
+      "duration_seconds_including_load": 219.0,
+      "throughput_chunks_per_second": 0.45662100456621,
+      "projected_hours_500_ov50": 36.49209166666667,
+      "passed": true
+    },
+    {
+      "model_id": "kakao1513/KURE-legal-ft-v1",
+      "model_revision": "82e71693515159e69afe0186eb601a194cbc9cf8",
+      "rows": 100,
+      "dimension": 1024,
+      "nan_values": 0,
+      "norm_min": 0.9999998807907104,
+      "norm_mean": 1.0,
+      "norm_max": 1.0000001192092896,
+      "same_chunk_ids": true,
+      "parquet_bytes": 635044,
+      "duration_seconds_including_load": 173.0,
+      "throughput_chunks_per_second": 0.5780346820809249,
+      "projected_hours_500_ov50": 28.82708611111111,
+      "passed": true
+    },
+    {
+      "model_id": "nlpai-lab/KURE-v1",
+      "model_revision": "d14c8a9423946e268a0c9952fecf3a7aabd73bd9",
+      "rows": 100,
+      "dimension": 1024,
+      "nan_values": 0,
+      "norm_min": 0.9999998807907104,
+      "norm_mean": 1.0,
+      "norm_max": 1.0000001192092896,
+      "same_chunk_ids": true,
+      "parquet_bytes": 634522,
+      "duration_seconds_including_load": 162.0,
+      "throughput_chunks_per_second": 0.6172839506172839,
+      "projected_hours_500_ov50": 26.99415,
+      "passed": true
+    }
+  ]
+}

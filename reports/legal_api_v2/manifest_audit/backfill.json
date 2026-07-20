@@ -1,0 +1,52 @@
+{
+  "backfilled_at": "2026-07-20T02:07:40+00:00",
+  "capture_mode": "post_run_backfill",
+  "jsonl_or_parquet_modified": false,
+  "manifests": [
+    {
+      "path": "data/legal_api_v2/06_final/manifest.json",
+      "before": "07c02953715999657c0b9823a90eed5a006f6e472e330a25a90f7111dcef2bf2",
+      "after": "4d1f65d9fe9e532aaf22a41f222ac2c4abd923cc82ab213383d1191018096a82"
+    },
+    {
+      "path": "data/legal_api_v2/07_chunking_1000_ov100/manifest.json",
+      "before": "333a47b067813c611931cc7eb1c2744a2fca17751e458d1eff7cac26d2353b60",
+      "after": "2a844d03063328711c280583773c5cb4babef41b9234069155977bc28b22ca08"
+    },
+    {
+      "path": "data/legal_api_v2/07_chunking_300_ov30/manifest.json",
+      "before": "5b37e4fdbb7f2a7dfe282f78d6761579d87f31490b328a7581b20652b654a013",
+      "after": "ffd4f7dc50e34670fbd4cfef32ff7be69ee2bb6b8a309ec963dcf6883a30843d"
+    },
+    {
+      "path": "data/legal_api_v2/07_chunking_500_ov50/manifest.json",
+      "before": "86217e2eb7a2b8709935bd3cb6fb24483156be37d22824bce29af6799a0241ba",
+      "after": "2c25cce46dcc208ccf37b6b3596c891192a75e652749568dcb10ddbc31166199"
+    },
+    {
+      "path": "data/legal_api_v2/07_chunking_800_ov80/manifest.json",
+      "before": "81033997a2615dc05aae60d17852b98b2a187b917eaf6275e030dac9004baed1",
+      "after": "874e9b5dbc64a896fa7228fcd2cd77244f8847ba91b5f947a9330b8726ffde2f"
+    },
+    {
+      "path": "data/legal_api_v2/08_embedding_500_ov50_bge-m3_smoke100/manifest.json",
+      "before": "a66a283265fe124ab4bfb58adf66b145516e104161ee7af6db2b1bce91795860",
+      "after": "017077edca4e5604201e8e73c46ea992b38c862078691e307ea19be21bdb2055"
+    },
+    {
+      "path": "data/legal_api_v2/08_embedding_500_ov50_kure-legal-ft-v1_smoke100/manifest.json",
+      "before": "8b2e392c245fa695a00ee97c26f2e247276596800c6efac2090c929d30f58acf",
+      "after": "a7ae7ebbc93f56988a9efb05b0462c640a7765566f06237d02e932e228bbfb50"
+    },
+    {
+      "path": "data/legal_api_v2/08_embedding_500_ov50_kure-v1_smoke100/manifest.json",
+      "before": "e43dbe8b7b7cc1c038a512e70c62d5a76030ab350202714d4f000c166f7adcd8",
+      "after": "8b6489bc5afed8239eb20bf010142cef2f928c3b4e8bf2610a9e39cd21069528"
+    },
+    {
+      "path": "data/legal_api_v2/08_embedding_500_ov50_kure-v1_smoke100_bs16/manifest.json",
+      "before": "9d874ec38fa9c53b908411dcaa78dcfc6478c841e5801003b29fb4a8495f1357",
+      "after": "affec998cc3edaec706c6138ab2b434a13d34fb4d0d66c8edbcaf913a9560c87"
+    }
+  ]
+}

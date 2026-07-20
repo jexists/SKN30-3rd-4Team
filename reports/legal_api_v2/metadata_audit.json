@@ -1,0 +1,121 @@
+{
+  "checked_at": "2026-07-20T10:21:22+00:00",
+  "contract": {
+    "final_schema": [
+      "metadata",
+      "page_content"
+    ],
+    "chunk_schema": [
+      "chunk_id",
+      "content",
+      "metadata"
+    ],
+    "common_metadata": [
+      "source_type",
+      "source_id",
+      "record_id",
+      "doc_title",
+      "source_org",
+      "doc_year",
+      "authority",
+      "issue",
+      "section"
+    ],
+    "type_metadata": {
+      "statute": [
+        "article",
+        "article_no",
+        "article_title",
+        "effective_date"
+      ],
+      "precedent": [
+        "court",
+        "case_no",
+        "decision_date",
+        "judgment_type",
+        "relevance_level"
+      ],
+      "interpretation": [
+        "case_no",
+        "decision_date",
+        "interpreting_agency"
+      ]
+    },
+    "pdf_metadata": [
+      "pdf_page",
+      "book_page"
+    ],
+    "required_metadata": [
+      "source_type",
+      "source_id",
+      "record_id",
+      "doc_title",
+      "section"
+    ]
+  },
+  "final": {
+    "directory": "data/legal_api_v2/06_final",
+    "files": 18,
+    "rows": 8259,
+    "unique_record_ids": 8259
+  },
+  "chunking": [
+    {
+      "directory": "data/legal_api_v2/07_chunking_300_ov30",
+      "files": 18,
+      "rows": 95350,
+      "unique_chunk_ids": 95350,
+      "metadata_mismatches": 0
+    },
+    {
+      "directory": "data/legal_api_v2/07_chunking_500_ov50",
+      "files": 18,
+      "rows": 59987,
+      "unique_chunk_ids": 59987,
+      "metadata_mismatches": 0
+    },
+    {
+      "directory": "data/legal_api_v2/07_chunking_800_ov80",
+      "files": 18,
+      "rows": 39226,
+      "unique_chunk_ids": 39226,
+      "metadata_mismatches": 0
+    },
+    {
+      "directory": "data/legal_api_v2/07_chunking_1000_ov100",
+      "files": 18,
+      "rows": 32215,
+      "unique_chunk_ids": 32215,
+      "metadata_mismatches": 0
+    }
+  ],
+  "audited_manifests": [
+    {
+      "path": "data/legal_api_v2/06_final/manifest.json",
+      "sha256": "4d1f65d9fe9e532aaf22a41f222ac2c4abd923cc82ab213383d1191018096a82"
+    },
+    {
+      "path": "data/legal_api_v2/07_chunking_300_ov30/manifest.json",
+      "sha256": "ffd4f7dc50e34670fbd4cfef32ff7be69ee2bb6b8a309ec963dcf6883a30843d"
+    },
+    {
+      "path": "data/legal_api_v2/07_chunking_500_ov50/manifest.json",
+      "sha256": "2c25cce46dcc208ccf37b6b3596c891192a75e652749568dcb10ddbc31166199"
+    },
+    {
+      "path": "data/legal_api_v2/07_chunking_800_ov80/manifest.json",
+      "sha256": "874e9b5dbc64a896fa7228fcd2cd77244f8847ba91b5f947a9330b8726ffde2f"
+    },
+    {
+      "path": "data/legal_api_v2/07_chunking_1000_ov100/manifest.json",
+      "sha256": "2a844d03063328711c280583773c5cb4babef41b9234069155977bc28b22ca08"
+    }
+  ],
+  "errors": {
+    "count": 0,
+    "by_code": {},
+    "examples": [],
+    "examples_truncated": false
+  },
+  "passed": true
+}
