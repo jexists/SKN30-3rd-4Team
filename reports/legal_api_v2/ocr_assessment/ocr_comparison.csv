@@ -1,0 +1,11 @@
+﻿record_id,parent_record_id,source_type,ocr_confidence,ocr_chars,parent_chars,normalized_trigram_coverage,numeric_tokens,numeric_token_coverage,hangul_terms,hangul_term_coverage,manual_new_search_value,adoption_status
+185123:body:image:1,185123:body,precedent,72,156,15293,0.0,1,0.0,1,0.0,False,duplicate_or_no_search_value
+424024:body:image:1,424024:body,precedent,65,850,11826,0.08441558441558442,21,0.09523809523809523,6,0.5,False,duplicate_or_no_search_value
+424024:body:image:2,424024:body,precedent,87,562,11826,0.6511627906976745,11,0.45454545454545453,7,0.5714285714285714,False,duplicate_or_no_search_value
+424024:body:image:3,424024:body,precedent,71,1285,11826,0.15476190476190477,37,0.16216216216216217,15,0.4,False,duplicate_or_no_search_value
+186156:body:image:1,186156:body,precedent,83,1061,4062,0.2222222222222222,18,0.3888888888888889,83,0.37349397590361444,False,duplicate_or_no_search_value
+004950:annex:000100E:image:1,004950:annex:000100E,statute,88,491,473,0.8133333333333334,2,0.5,48,0.9583333333333334,False,duplicate_or_no_search_value
+004950:annex:000200E:image:1,004950:annex:000200E,statute,86,324,263,0.6752136752136753,8,0.625,21,0.9047619047619048,False,duplicate_or_no_search_value
+005868:annex:000100F:image:1,005868:annex:000100F,statute,85,343,320,0.5806451612903226,7,0.42857142857142855,23,0.8695652173913043,False,duplicate_or_no_search_value
+005868:annex:000200F:image:1,005868:annex:000200F,statute,89,256,326,0.8220338983050848,4,0.75,26,0.9230769230769231,False,duplicate_or_no_search_value
+005868:annex:000300F:image:1,005868:annex:000300F,statute,88,570,547,0.7595628415300546,6,0.6666666666666666,39,0.8717948717948718,False,duplicate_or_no_search_value

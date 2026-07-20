@@ -1,0 +1,20 @@
+{
+  "reviewed_at": "2026-07-20",
+  "method": "manual_visual_review_not_ocr",
+  "sample_count": 10,
+  "precedent_samples": 5,
+  "statute_samples": 5,
+  "checks": [
+    "제목과 조문·별지 번호",
+    "금액과 날짜",
+    "표의 행·열과 핵심 셀",
+    "부모 텍스트의 동일 쟁점·금액·조건 포함 여부"
+  ],
+  "observations": {
+    "precedent": "갱신·권리금 판단표, 재산세 금액·면적표, 임대차계약 조건표의 핵심 쟁점·금액·조건이 부모 판결문에 이미 포함되어 있다.",
+    "statute": "관할구역·수수료 표의 내용은 부모 annex 텍스트에 포함되어 있고, 나머지는 값이 기입되지 않은 등기 양식이다."
+  },
+  "new_search_value_found": false,
+  "decision": "baseline corpus에 OCR 레코드를 추가하지 않음",
+  "caveat": "로컬 OCR 엔진의 문자 정확도·정규화 중복률 수치 평가는 Windows 실행 정책이 허용되는 환경에서 별도로 수행한다."
+}

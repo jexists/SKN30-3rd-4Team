@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-07-20T00:18:08+00:00",
+  "input_dir": "data/legal_api_v2/06_final",
+  "records": 8259,
+  "length": {
+    "count": 8259,
+    "min": 5,
+    "mean": 2532.118900593292,
+    "median": 431.0,
+    "p25": 155.0,
+    "p75": 1761.5,
+    "p90": 5723.2,
+    "p95": 11102.89999999999,
+    "p99": 30995.600000000057,
+    "max": 359996,
+    "empty_content": 0,
+    "duplicate_record_id": 0,
+    "duplicate_content": 218
+  },
+  "chunk_candidates": [
+    {
+      "chunk_size": 300,
+      "overlap": 30,
+      "estimated_chunks": 81092,
+      "embedding_raw_gib": 0.3093414306640625,
+      "supabase_rows": 81092,
+      "actual_chunks": 95350
+    },
+    {
+      "chunk_size": 500,
+      "overlap": 50,
+      "estimated_chunks": 50568,
+      "embedding_raw_gib": 0.192901611328125,
+      "supabase_rows": 50568,
+      "actual_chunks": 59987
+    },
+    {
+      "chunk_size": 800,
+      "overlap": 80,
+      "estimated_chunks": 33665,
+      "embedding_raw_gib": 0.12842178344726562,
+      "supabase_rows": 33665,
+      "actual_chunks": 39226
+    },
+    {
+      "chunk_size": 1000,
+      "overlap": 100,
+      "estimated_chunks": 28069,
+      "embedding_raw_gib": 0.10707473754882812,
+      "supabase_rows": 28069,
+      "actual_chunks": 32215
+    }
+  ],
+  "recommended_chunk_size": 500,
+  "recommended_overlap": 50,
+  "recommendation_reason": "최종 corpus 중앙값 431자 부근을 한 청크로 보존하는 기준선이며 300/800/1000과 검색 평가로 비교한다.",
+  "tokenizer_analysis_completed": true,
+  "tokenizer_stats": {
+    "kakao1513/KURE-legal-ft-v1": {
+      "over_8192": 266,
+      "max_tokens": 199491
+    },
+    "nlpai-lab/KURE-v1": {
+      "over_8192": 266,
+      "max_tokens": 199491
+    },
+    "BAAI/bge-m3": {
+      "over_8192": 266,
+      "max_tokens": 199491
+    }
+  }
+}

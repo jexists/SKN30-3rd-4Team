@@ -1,0 +1,11 @@
+﻿record_id,parent_record_id,source_type,source_id,section,doc_title,image_id,image_url,has_url,parent_text_available,parent_in_baseline,parent_char_count
+185123:body:image:1,185123:body,precedent,185123,body,건물명도·손해배상(기),30461499,/LSA/flDownload.do?flSeq=30461499,True,True,True,15293
+424024:body:image:1,424024:body,precedent,424024,body,지방세법 제109조 제3항에 따라 재산세가 비과세되는 ‘유지’에 대해 제3자와 임대차계약을 체결하고 임대료를 받고 있는 경우 재산세 비과세 대상인지 여부,48025228,/LSA/flDownload.do?flSeq=48025228,True,True,True,11826
+424024:body:image:2,424024:body,precedent,424024,body,지방세법 제109조 제3항에 따라 재산세가 비과세되는 ‘유지’에 대해 제3자와 임대차계약을 체결하고 임대료를 받고 있는 경우 재산세 비과세 대상인지 여부,48025230,/LSA/flDownload.do?flSeq=48025230,True,True,True,11826
+424024:body:image:3,424024:body,precedent,424024,body,지방세법 제109조 제3항에 따라 재산세가 비과세되는 ‘유지’에 대해 제3자와 임대차계약을 체결하고 임대료를 받고 있는 경우 재산세 비과세 대상인지 여부,48025232,/LSA/flDownload.do?flSeq=48025232,True,True,True,11826
+186156:body:image:1,186156:body,precedent,186156,body,채무부존재확인,32566412,/LSA/flDownload.do?flSeq=32566412,True,True,True,4062
+004950:annex:000100E:image:1,004950:annex:000100E,statute,004950,annex,주택임대차보호법 시행령,165044671,https://www.law.go.kr/LSW/flDownload.do?flSeq=165044671,True,True,True,473
+004950:annex:000200E:image:1,004950:annex:000200E,statute,004950,annex,주택임대차보호법 시행령,165044677,https://www.law.go.kr/LSW/flDownload.do?flSeq=165044677,True,True,True,263
+005868:annex:000100F:image:1,005868:annex:000100F,statute,005868,annex,부동산등기규칙,145843517,https://www.law.go.kr/LSW/flDownload.do?flSeq=145843517,True,True,True,320
+005868:annex:000200F:image:1,005868:annex:000200F,statute,005868,annex,부동산등기규칙,145843523,https://www.law.go.kr/LSW/flDownload.do?flSeq=145843523,True,True,True,326
+005868:annex:000300F:image:1,005868:annex:000300F,statute,005868,annex,부동산등기규칙,145843529,https://www.law.go.kr/LSW/flDownload.do?flSeq=145843529,True,True,True,547

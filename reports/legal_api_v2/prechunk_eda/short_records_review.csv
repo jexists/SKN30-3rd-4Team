@@ -1,0 +1,11 @@
+﻿file,meta.record_id,meta.doc_title,meta.source_type,meta.section,meta.relevance_level,char_count,page_content
+api_eflaw.jsonl,004950:article:0002021,주택임대차보호법 시행령,statute,article,,5,제2조의2
+api_prec_전세사기.jsonl,101585:holding,보증금,precedent,holding,candidate,10,자유심증주의의 의미
+api_prec_갱신종료.jsonl,118467:holding,매수청구권행사에인한건물명도등,precedent,holding,candidate,11,매수청구권행사의 대상
+api_prec_경매배당.jsonl,118524:holding,동산인도,precedent,holding,candidate,12,동산의 경락과 선의취득
+api_prec_수선원상회복.jsonl,76966:holding,손해배상청구사건,precedent,holding,relevant,15,가옥임차인의 통상관리의무범위
+api_prec_갱신종료.jsonl,68777:holding,대여금,precedent,holding,candidate,16,재판상 자백 여부의 판단 방법
+api_prec_갱신종료.jsonl,209009:holding,경작권확인,precedent,holding,candidate,17,농지개혁법시행령 제33조의 의의
+api_prec_갱신종료.jsonl,86018:holding,부동산소유권이전등기,precedent,holding,candidate,18,양도담보 및 대물변제 예약의 효력
+api_prec_전세사기.jsonl,85937:holding,행정처분취소,precedent,holding,candidate,18,귀속재산을 임차할 수 있는 연고권
+api_prec_경매배당.jsonl,68368:holding,강제집행면탈·사기,precedent,holding,candidate,19,정지조건부 법률행위의 효력발생 요건
